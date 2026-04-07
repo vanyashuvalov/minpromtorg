@@ -42,13 +42,11 @@ import documentFolders from "../../../document-folders.png";
       </div>
 
       <div class="relative self-stretch overflow-hidden rounded-[28px] bg-[rgba(255,255,255,0.08)]">
-        <div class="absolute inset-0 flex items-stretch justify-end">
-          <img
-            src={documentFolders.src}
-            alt="Папки с документами"
-            class="h-full w-auto max-w-none select-none object-contain object-right"
-          />
-        </div>
+        <img
+          src={documentFolders.src}
+          alt="Папки с документами"
+          class="absolute inset-0 h-full w-full select-none object-cover object-[72%_center]"
+        />
         <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.02),rgba(15,23,42,0.18))]"></div>
         <div class="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-white/10"></div>
       </div>

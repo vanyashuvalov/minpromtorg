@@ -31,8 +31,8 @@ const sliderDefaults = {
     </div>
 
     <Card class="mt-10 overflow-hidden p-6 sm:p-8 lg:p-10">
-      <div class="grid gap-5 lg:grid-cols-3">
-        <label class="calculator-control">
+      <div class="grid gap-0">
+        <label class="py-5 first:pt-0 border-t border-[color:var(--border)] first:border-t-0">
           <div class="flex items-center justify-between gap-4">
             <span class="text-sm font-semibold text-[color:var(--text-muted)]">Количество позиций</span>
             <span data-field="positionsValue" class="text-sm font-semibold text-[color:var(--text)]">4</span>
@@ -46,13 +46,9 @@ const sliderDefaults = {
             value={sliderDefaults.positions}
             class="calculator-range mt-5 w-full"
           />
-          <div class="mt-3 flex items-center justify-between text-xs text-[color:var(--text-soft)]">
-            <span>1</span>
-            <span>24</span>
-          </div>
         </label>
 
-        <label class="calculator-control">
+        <label class="py-5 border-t border-[color:var(--border)]">
           <div class="flex items-center justify-between gap-4">
             <span class="text-sm font-semibold text-[color:var(--text-muted)]">Стоимость часа сотрудника</span>
             <span data-field="hourlyRateValue" class="text-sm font-semibold text-[color:var(--text)]">2 500 ₽</span>
@@ -66,13 +62,9 @@ const sliderDefaults = {
             value={sliderDefaults.hourlyRate}
             class="calculator-range mt-5 w-full"
           />
-          <div class="mt-3 flex items-center justify-between text-xs text-[color:var(--text-soft)]">
-            <span>800 ₽</span>
-            <span>20 000 ₽</span>
-          </div>
         </label>
 
-        <label class="calculator-control">
+        <label class="py-5 border-t border-[color:var(--border)]">
           <div class="flex items-center justify-between gap-4">
             <span class="text-sm font-semibold text-[color:var(--text-muted)]">Количество сотрудников</span>
             <span data-field="employeesValue" class="text-sm font-semibold text-[color:var(--text)]">3</span>
@@ -86,10 +78,6 @@ const sliderDefaults = {
             value={sliderDefaults.employees}
             class="calculator-range mt-5 w-full"
           />
-          <div class="mt-3 flex items-center justify-between text-xs text-[color:var(--text-soft)]">
-            <span>1</span>
-            <span>50</span>
-          </div>
         </label>
       </div>
 
@@ -117,9 +105,6 @@ const sliderDefaults = {
             <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">Итоговая выгода</p>
             <p data-field="savings" class="mt-3 text-4xl font-semibold text-[color:var(--text)]">0 ₽</p>
           </div>
-          <p class="max-w-lg text-sm leading-7 text-[color:var(--text-muted)]">
-            Покажем, сколько можно сэкономить на времени команды и рисках, если не делать процесс самостоятельно
-          </p>
         </div>
       </Card>
 
@@ -203,7 +188,7 @@ const sliderDefaults = {
       const safeValue = clampInput(value, min, max);
       const percent = ((safeValue - min) / (max - min)) * 100;
 
-      input.style.background = `linear-gradient(90deg, rgba(28,79,215,0.95) 0%, rgba(28,79,215,0.95) ${percent}%, rgba(15,23,42,0.09) ${percent}%, rgba(15,23,42,0.09) 100%)`;
+      input.style.background = `linear-gradient(90deg, rgba(15,23,42,0.42) 0%, rgba(15,23,42,0.42) ${percent}%, rgba(15,23,42,0.10) ${percent}%, rgba(15,23,42,0.10) 100%)`;
     };
 
     /*
@@ -249,22 +234,13 @@ const sliderDefaults = {
   </script>
 
   <style>
-    .calculator-control {
-      display: block;
-      padding: 20px;
-      border-radius: 28px;
-      border: 1px solid rgba(16, 24, 42, 0.08);
-      background: rgba(255, 255, 255, 0.82);
-      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.06);
-    }
-
     .calculator-range {
       appearance: none;
       -webkit-appearance: none;
       height: 12px;
       border-radius: 999px;
       outline: none;
-      background: rgba(15, 23, 42, 0.09);
+      background: linear-gradient(90deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.2) 100%);
     }
 
     .calculator-range::-webkit-slider-runnable-track {
@@ -280,8 +256,8 @@ const sliderDefaults = {
       height: 26px;
       border-radius: 999px;
       border: 3px solid #fff;
-      background: linear-gradient(135deg, #d88a39 0%, #efb160 100%);
-      box-shadow: 0 10px 24px rgba(184, 111, 42, 0.3);
+      background: #eef1f5;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
       margin-top: -7px;
     }
 
@@ -296,8 +272,8 @@ const sliderDefaults = {
       height: 26px;
       border-radius: 999px;
       border: 3px solid #fff;
-      background: linear-gradient(135deg, #d88a39 0%, #efb160 100%);
-      box-shadow: 0 10px 24px rgba(184, 111, 42, 0.3);
+      background: #eef1f5;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
     }
   </style>
 </section>
