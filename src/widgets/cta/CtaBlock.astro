@@ -8,13 +8,14 @@ Connected to: the hero and calculator sections, since this block is the end poin
 
 import { site } from "@/shared/config/site";
 import Button from "@/shared/ui/button/Button.astro";
-import Icon from "@/shared/ui/icon/Icon.astro";
+import documentFolders from "../../../document-folders.png";
 ---
 
 <section id="cta" class="scroll-mt-32 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
   <div class="glass-panel-dark relative overflow-hidden rounded-[36px] px-6 py-10 sm:px-8 lg:px-10">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(233,184,115,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(28,79,215,0.2),transparent_35%)]"></div>
-    <div class="relative grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+
+    <div class="relative grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
       <div class="max-w-2xl">
         <h2 class="mt-4 text-4xl leading-tight text-white sm:text-5xl">
           {site.cta.title}
@@ -26,43 +27,30 @@ import Icon from "@/shared/ui/icon/Icon.astro";
           <Button href="#calculator" variant="ghost" leadingIcon="trending-down">
             Открыть калькулятор
           </Button>
-          <Button href="#top" variant="secondary" class="bg-white text-[color:var(--text)]" leadingIcon="chat-conversation">
+          <Button
+            href="#top"
+            variant="secondary"
+            class="bg-white text-[color:var(--text)]"
+            leadingIcon="chat-conversation"
+            data-feedback-open
+            aria-haspopup="dialog"
+            aria-controls="feedback-modal"
+          >
             Консультация
           </Button>
         </div>
       </div>
 
-      <div class="grid gap-4 sm:grid-cols-2">
-        <div class="rounded-[28px] border border-white/12 bg-white/10 p-5">
-          <div class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/12 text-white">
-            <Icon name="file-document" size={18} />
-          </div>
-          <p class="mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-white/50">Что получаете</p>
-          <ul class="mt-4 space-y-3 text-sm leading-6 text-white/78">
-            <li class="flex gap-3">
-              <span class="mt-1 text-white/70"><Icon name="file-document" size={14} /></span>
-              <span>Список документов на старте</span>
-            </li>
-            <li class="flex gap-3">
-              <span class="mt-1 text-white/70"><Icon name="clock" size={14} /></span>
-              <span>Оценку рисков и сроков</span>
-            </li>
-            <li class="flex gap-3">
-              <span class="mt-1 text-white/70"><Icon name="shield-check" size={14} /></span>
-              <span>Понимание следующего шага</span>
-            </li>
-          </ul>
+      <div class="relative self-stretch overflow-hidden rounded-[28px] bg-[rgba(255,255,255,0.08)]">
+        <div class="absolute inset-0 flex items-stretch justify-end">
+          <img
+            src={documentFolders.src}
+            alt="Папки с документами"
+            class="h-full w-auto max-w-none select-none object-contain object-right"
+          />
         </div>
-        <div class="rounded-[28px] bg-white p-5 text-[color:var(--text)]">
-          <div class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[color:var(--brand-soft)] text-[color:var(--brand)]">
-            <Icon name="chat-conversation" size={18} />
-          </div>
-          <p class="mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">Формат</p>
-          <p class="mt-3 text-2xl leading-tight">Консультация, аудит и сопровождение</p>
-          <p class="mt-3 text-sm leading-7 text-[color:var(--text-muted)]">
-            Упакуем процесс так, чтобы вы точно понимали, за что платите и что происходит на каждом этапе
-          </p>
-        </div>
+        <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.02),rgba(15,23,42,0.18))]"></div>
+        <div class="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-white/10"></div>
       </div>
     </div>
   </div>

@@ -9,25 +9,34 @@ import Icon from "@/shared/ui/icon/Icon.astro";
 import type { CoolIconName } from "@/shared/lib/coolicons";
 
 type Variant = "primary" | "secondary" | "ghost";
+type As = "a" | "button";
 
 interface Props {
-  href: string;
+  as?: As;
+  href?: string;
   variant?: Variant;
   class?: string;
   target?: string;
   rel?: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
   leadingIcon?: CoolIconName;
   trailingIcon?: CoolIconName;
 }
 
 const {
+  as = "a",
   href,
   variant = "primary",
   class: className,
+  type = "button",
+  disabled,
   leadingIcon,
   trailingIcon,
   ...rest
 } = Astro.props as Props;
+
+const isButton = as === "button";
 
 const variantClasses: Record<Variant, string> = {
   primary:
@@ -39,6 +48,22 @@ const variantClasses: Record<Variant, string> = {
 };
 ---
 
+{isButton ? (
+  <button
+    type={type}
+    disabled={disabled}
+    class:list={[
+      "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent disabled:pointer-events-none disabled:opacity-60",
+      variantClasses[variant],
+      className,
+    ]}
+    {...rest}
+  >
+    {leadingIcon ? <Icon name={leadingIcon} class="text-current" size={18} /> : null}
+    <slot />
+    {trailingIcon ? <Icon name={trailingIcon} class="text-current" size={18} /> : null}
+  </button>
+) : (
 <a
   href={href}
   class:list={[
@@ -52,3 +77,4 @@ const variantClasses: Record<Variant, string> = {
   <slot />
   {trailingIcon ? <Icon name={trailingIcon} class="text-current" size={18} /> : null}
 </a>
+)}

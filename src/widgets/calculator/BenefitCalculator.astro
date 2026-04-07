@@ -1,94 +1,153 @@
 ---
 /*
-File purpose: render the landing page calculator as a compact, centered pricing block.
-Why this exists: the page needs a clean comparison widget without the extra explanatory panels from the previous version.
-What it does: accepts three inputs, recalculates the self-run and turnkey estimates live, and presents the result in a minimal card layout.
-Connected to: `src/shared/lib/benefit-calculator.ts`, `src/shared/ui/card/Card.astro`, and the CTA section below the calculator.
+File purpose: render the landing page calculator as a centered, slider-driven comparison block.
+Why this exists: the page needs a clean benefit widget that shows the cost difference without extra explanatory noise.
+What it does: lets the visitor adjust three variables with sliders, recalculates the comparison live, and presents a short result summary with one clear next action.
+Connected to: `src/shared/lib/benefit-calculator.ts`, `src/shared/ui/card/Card.astro`, `src/shared/ui/button/Button.astro`, and the feedback modal opened from the CTA below.
 */
 
+import Button from "@/shared/ui/button/Button.astro";
 import Card from "@/shared/ui/card/Card.astro";
-import Icon from "@/shared/ui/icon/Icon.astro";
+
+const sliderDefaults = {
+  positions: 4,
+  hourlyRate: 2500,
+  employees: 3,
+} as const;
 ---
 
 <section id="calculator" class="scroll-mt-32 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-  <div class="mx-auto max-w-4xl">
+  <div class="mx-auto max-w-5xl">
     <div class="mx-auto max-w-2xl text-center">
-      <div class="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-white px-3 py-1.5 text-[color:var(--brand)]">
-        <Icon name="trending-down" size={14} />
-        <span class="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--text-soft)]">Калькулятор</span>
-      </div>
-      <h2 class="mt-4 text-3xl leading-[0.96] sm:text-4xl lg:text-5xl">Калькулятор выгоды</h2>
+      <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--text-soft)]">
+        Калькулятор выгоды
+      </p>
+      <h2 class="mt-4 text-3xl leading-[0.96] sm:text-4xl lg:text-5xl">
+        Посчитайте экономию за пару секунд
+      </h2>
+      <p class="mt-4 text-base leading-7 text-[color:var(--text-muted)] sm:text-lg">
+        Передвиньте три слайдера и сразу увидите разницу между самостоятельной подготовкой и работой под ключ
+      </p>
     </div>
 
     <Card class="mt-10 overflow-hidden p-6 sm:p-8 lg:p-10">
-      <div class="grid gap-4 md:grid-cols-3">
-        <label class="block">
-          <span class="mb-3 block text-sm font-semibold text-[color:var(--text-muted)]">Количество позиций</span>
+      <div class="grid gap-5 lg:grid-cols-3">
+        <label class="calculator-control">
+          <div class="flex items-center justify-between gap-4">
+            <span class="text-sm font-semibold text-[color:var(--text-muted)]">Количество позиций</span>
+            <span data-field="positionsValue" class="text-sm font-semibold text-[color:var(--text)]">4</span>
+          </div>
           <input
             data-field="positions"
-            type="number"
+            type="range"
             min="1"
             max="24"
             step="1"
-            value="4"
-            class="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 text-lg font-semibold text-[color:var(--text)] outline-none transition focus:border-[color:var(--brand)] focus:ring-2 focus:ring-[color:var(--brand-soft)]"
+            value={sliderDefaults.positions}
+            class="calculator-range mt-5 w-full"
           />
+          <div class="mt-3 flex items-center justify-between text-xs text-[color:var(--text-soft)]">
+            <span>1</span>
+            <span>24</span>
+          </div>
         </label>
 
-        <label class="block">
-          <span class="mb-3 block text-sm font-semibold text-[color:var(--text-muted)]">Час сотрудника</span>
+        <label class="calculator-control">
+          <div class="flex items-center justify-between gap-4">
+            <span class="text-sm font-semibold text-[color:var(--text-muted)]">Стоимость часа сотрудника</span>
+            <span data-field="hourlyRateValue" class="text-sm font-semibold text-[color:var(--text)]">2 500 ₽</span>
+          </div>
           <input
             data-field="hourlyRate"
-            type="number"
+            type="range"
             min="800"
             max="20000"
             step="100"
-            value="2500"
-            class="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 text-lg font-semibold text-[color:var(--text)] outline-none transition focus:border-[color:var(--brand)] focus:ring-2 focus:ring-[color:var(--brand-soft)]"
+            value={sliderDefaults.hourlyRate}
+            class="calculator-range mt-5 w-full"
           />
+          <div class="mt-3 flex items-center justify-between text-xs text-[color:var(--text-soft)]">
+            <span>800 ₽</span>
+            <span>20 000 ₽</span>
+          </div>
         </label>
 
-        <label class="block">
-          <span class="mb-3 block text-sm font-semibold text-[color:var(--text-muted)]">Количество сотрудников</span>
+        <label class="calculator-control">
+          <div class="flex items-center justify-between gap-4">
+            <span class="text-sm font-semibold text-[color:var(--text-muted)]">Количество сотрудников</span>
+            <span data-field="employeesValue" class="text-sm font-semibold text-[color:var(--text)]">3</span>
+          </div>
           <input
             data-field="employees"
-            type="number"
+            type="range"
             min="1"
             max="50"
             step="1"
-            value="3"
-            class="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 text-lg font-semibold text-[color:var(--text)] outline-none transition focus:border-[color:var(--brand)] focus:ring-2 focus:ring-[color:var(--brand-soft)]"
+            value={sliderDefaults.employees}
+            class="calculator-range mt-5 w-full"
           />
+          <div class="mt-3 flex items-center justify-between text-xs text-[color:var(--text-soft)]">
+            <span>1</span>
+            <span>50</span>
+          </div>
         </label>
       </div>
 
-      <div class="mt-8 grid gap-3 sm:grid-cols-3">
-        <div class="rounded-[24px] bg-[#f4f7fb] p-5">
-          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">Если сами</p>
+      <div class="mt-8 grid gap-4 lg:grid-cols-2">
+        <Card class="p-5 sm:p-6">
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">Сами</p>
           <p data-field="selfCost" class="mt-3 text-3xl font-semibold text-[color:var(--text)]">0 ₽</p>
-        </div>
+          <p class="mt-3 text-sm leading-7 text-[color:var(--text-muted)]">
+            Если всё делать своими силами, без внешнего сопровождения
+          </p>
+        </Card>
 
-        <div class="rounded-[24px] bg-[linear-gradient(135deg,rgba(28,79,215,0.12),rgba(255,255,255,0.9))] p-5">
-          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--brand)]">Под ключ</p>
+        <Card class="p-5 sm:p-6 bg-[linear-gradient(135deg,rgba(28,79,215,0.08),rgba(255,255,255,0.96))]">
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--brand)]">С нами</p>
           <p data-field="agencyCost" class="mt-3 text-3xl font-semibold text-[color:var(--text)]">0 ₽</p>
-        </div>
+          <p class="mt-3 text-sm leading-7 text-[color:var(--text-muted)]">
+            Полное сопровождение под ключ с контролем процесса
+          </p>
+        </Card>
+      </div>
 
-        <div class="rounded-[24px] border border-[color:var(--border)] p-5">
-          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">Экономия</p>
-          <p data-field="savings" class="mt-3 text-3xl font-semibold text-[color:var(--success)]">0 ₽</p>
+      <Card class="mt-4 bg-[linear-gradient(135deg,rgba(28,79,215,0.12),rgba(233,184,115,0.16))] p-5 sm:p-6">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">Итоговая выгода</p>
+            <p data-field="savings" class="mt-3 text-4xl font-semibold text-[color:var(--text)]">0 ₽</p>
+          </div>
+          <p class="max-w-lg text-sm leading-7 text-[color:var(--text-muted)]">
+            Покажем, сколько можно сэкономить на времени команды и рисках, если не делать процесс самостоятельно
+          </p>
         </div>
+      </Card>
+
+      <div class="mt-8 flex justify-center">
+        <Button
+          as="button"
+          type="button"
+          variant="primary"
+          leadingIcon="file-document"
+          data-feedback-open
+          aria-haspopup="dialog"
+          aria-controls="feedback-modal"
+        >
+          Получить КП
+        </Button>
       </div>
     </Card>
   </div>
 
   <script>
     /*
-     * Bind the three number fields to the shared pricing model.
-     * This keeps the calculator lean, avoids framework overhead, and makes the live estimate easy to maintain with the rest of the landing page.
+     * Keep the slider UI and the shared calculation model in sync.
+     * The widget is intentionally framework-free so it stays fast, predictable, and easy to integrate with the rest of the landing page.
      */
     import {
       calculateBenefitComparison,
       clampInput,
+      formatNumber,
       formatRubles,
     } from "@/shared/lib/benefit-calculator";
 
@@ -102,11 +161,25 @@ import Icon from "@/shared/ui/icon/Icon.astro";
     const hourlyRateInput = root.querySelector<HTMLInputElement>('[data-field="hourlyRate"]');
     const employeesInput = root.querySelector<HTMLInputElement>('[data-field="employees"]');
 
+    const positionsValue = root.querySelector<HTMLElement>('[data-field="positionsValue"]');
+    const hourlyRateValue = root.querySelector<HTMLElement>('[data-field="hourlyRateValue"]');
+    const employeesValue = root.querySelector<HTMLElement>('[data-field="employeesValue"]');
+
     const selfCost = root.querySelector<HTMLElement>('[data-field="selfCost"]');
     const agencyCost = root.querySelector<HTMLElement>('[data-field="agencyCost"]');
     const savings = root.querySelector<HTMLElement>('[data-field="savings"]');
 
-    if (!positionsInput || !hourlyRateInput || !employeesInput || !selfCost || !agencyCost || !savings) {
+    if (
+      !positionsInput ||
+      !hourlyRateInput ||
+      !employeesInput ||
+      !positionsValue ||
+      !hourlyRateValue ||
+      !employeesValue ||
+      !selfCost ||
+      !agencyCost ||
+      !savings
+    ) {
       throw new Error("Calculator outputs were not found.");
     }
 
@@ -116,9 +189,26 @@ import Icon from "@/shared/ui/icon/Icon.astro";
       employees: 3,
     };
 
+    const rangeMeta = {
+      positions: { min: 1, max: 24 },
+      hourlyRate: { min: 800, max: 20000 },
+      employees: { min: 1, max: 50 },
+    } as const;
+
     /*
-     * Push the current state into the result cards on every input change.
-     * The section is intentionally compact, so the render step only updates the values the visitor actually cares about.
+     * Paint the slider track so the fill reflects the current value.
+     * This gives the controls a tactile, premium feel while keeping the markup simple.
+     */
+    const paintRange = (input: HTMLInputElement, min: number, max: number, value: number) => {
+      const safeValue = clampInput(value, min, max);
+      const percent = ((safeValue - min) / (max - min)) * 100;
+
+      input.style.background = `linear-gradient(90deg, rgba(28,79,215,0.95) 0%, rgba(28,79,215,0.95) ${percent}%, rgba(15,23,42,0.09) ${percent}%, rgba(15,23,42,0.09) 100%)`;
+    };
+
+    /*
+     * Render the current state into the value badges and result cards.
+     * Keeping a single render path makes the widget easy to tune if the pricing assumptions change later.
      */
     const render = () => {
       const result = calculateBenefitComparison(state);
@@ -126,26 +216,88 @@ import Icon from "@/shared/ui/icon/Icon.astro";
       positionsInput.value = String(state.positions);
       hourlyRateInput.value = String(state.hourlyRate);
       employeesInput.value = String(state.employees);
+
+      positionsValue.textContent = formatNumber(state.positions);
+      hourlyRateValue.textContent = formatRubles(state.hourlyRate);
+      employeesValue.textContent = formatNumber(state.employees);
+
       selfCost.textContent = formatRubles(result.selfCost);
       agencyCost.textContent = formatRubles(result.agencyCost);
       savings.textContent = formatRubles(result.savings);
+
+      paintRange(positionsInput, rangeMeta.positions.min, rangeMeta.positions.max, state.positions);
+      paintRange(hourlyRateInput, rangeMeta.hourlyRate.min, rangeMeta.hourlyRate.max, state.hourlyRate);
+      paintRange(employeesInput, rangeMeta.employees.min, rangeMeta.employees.max, state.employees);
     };
 
     positionsInput.addEventListener("input", (event) => {
-      state.positions = clampInput(Number((event.target as HTMLInputElement).value), 1, 24);
+      state.positions = clampInput(Number((event.target as HTMLInputElement).value), rangeMeta.positions.min, rangeMeta.positions.max);
       render();
     });
 
     hourlyRateInput.addEventListener("input", (event) => {
-      state.hourlyRate = clampInput(Number((event.target as HTMLInputElement).value), 800, 20000);
+      state.hourlyRate = clampInput(Number((event.target as HTMLInputElement).value), rangeMeta.hourlyRate.min, rangeMeta.hourlyRate.max);
       render();
     });
 
     employeesInput.addEventListener("input", (event) => {
-      state.employees = clampInput(Number((event.target as HTMLInputElement).value), 1, 50);
+      state.employees = clampInput(Number((event.target as HTMLInputElement).value), rangeMeta.employees.min, rangeMeta.employees.max);
       render();
     });
 
     render();
   </script>
+
+  <style>
+    .calculator-control {
+      display: block;
+      padding: 20px;
+      border-radius: 28px;
+      border: 1px solid rgba(16, 24, 42, 0.08);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.06);
+    }
+
+    .calculator-range {
+      appearance: none;
+      -webkit-appearance: none;
+      height: 12px;
+      border-radius: 999px;
+      outline: none;
+      background: rgba(15, 23, 42, 0.09);
+    }
+
+    .calculator-range::-webkit-slider-runnable-track {
+      height: 12px;
+      border-radius: 999px;
+      background: transparent;
+    }
+
+    .calculator-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 3px solid #fff;
+      background: linear-gradient(135deg, #d88a39 0%, #efb160 100%);
+      box-shadow: 0 10px 24px rgba(184, 111, 42, 0.3);
+      margin-top: -7px;
+    }
+
+    .calculator-range::-moz-range-track {
+      height: 12px;
+      border-radius: 999px;
+      background: transparent;
+    }
+
+    .calculator-range::-moz-range-thumb {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 3px solid #fff;
+      background: linear-gradient(135deg, #d88a39 0%, #efb160 100%);
+      box-shadow: 0 10px 24px rgba(184, 111, 42, 0.3);
+    }
+  </style>
 </section>

@@ -2,7 +2,7 @@
 /*
 File purpose: explain the tangible value of the registry status.
 Why this exists: the landing page should not only sell the service, but also show why the result matters for the customer's business.
-What it does: displays four benefit cards that translate the status into procurement, proof, risk, and negotiation advantages.
+What it does: keeps the heading area sticky while a 2x2 grid of benefit cards scrolls beside it.
 Connected to: the calculator section and the process section, because the value statement supports the conversion path.
 */
 
@@ -10,21 +10,40 @@ import { site } from "@/shared/config/site";
 import Card from "@/shared/ui/card/Card.astro";
 import type { CoolIconName } from "@/shared/lib/coolicons";
 import Icon from "@/shared/ui/icon/Icon.astro";
-import Section from "@/shared/ui/section/Section.astro";
 
 const benefitIcons: CoolIconName[] = ["building-04", "file-document", "shield-check", "users-group"];
 ---
 
-<Section id="benefits" title={site.benefits.title}>
-  <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-    {site.benefits.items.map((item, index) => (
-      <Card class="h-full p-6">
-        <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[color:var(--brand-soft)] text-[color:var(--brand)]">
-          <Icon name={benefitIcons[index]} size={20} />
+<section id="benefits" class="scroll-mt-32 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+  <div class="mx-auto max-w-7xl">
+    <div class="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
+      <!-- Left column stays sticky so the value message remains in view while the cards scroll next to it. -->
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <div class="max-w-xl">
+          <h2 class="text-3xl leading-[0.96] sm:text-4xl lg:text-5xl">
+            {site.benefits.title}
+          </h2>
+          <p class="mt-5 max-w-lg text-base leading-7 text-[color:var(--text-muted)] sm:text-lg">
+            {site.benefits.lead}
+          </p>
         </div>
-        <h3 class="mt-4 text-2xl leading-tight">{item.title}</h3>
-        <p class="mt-4 text-sm leading-7 text-[color:var(--text-muted)]">{item.text}</p>
-      </Card>
-    ))}
+      </div>
+
+      <!-- Right column uses a 2x2 grid so each benefit reads as a compact business card. -->
+      <div class="grid gap-4 sm:grid-cols-2">
+        {site.benefits.items.map((item, index) => (
+          <Card class="h-full p-6">
+            <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[color:var(--brand-soft)] text-[color:var(--brand)]">
+              <Icon name={benefitIcons[index]} size={20} />
+            </div>
+            <h3 class="mt-4 text-2xl leading-tight">{item.title}</h3>
+            <p class="mt-4 text-sm leading-7 text-[color:var(--text-muted)]">{item.text}</p>
+            <p class="mt-5 border-t border-[color:var(--border)] pt-4 text-sm font-semibold text-[color:var(--text)]">
+              {item.meta}
+            </p>
+          </Card>
+        ))}
+      </div>
+    </div>
   </div>
-</Section>
+</section>

@@ -29,11 +29,16 @@ import Button from "@/shared/ui/button/Button.astro";
       </nav>
 
       <div class="flex items-center gap-3">
-        <Button href="#cta" variant="secondary" class="hidden sm:inline-flex" leadingIcon="chat-conversation">
+        <Button
+          href="#cta"
+          variant="secondary"
+          class="hidden sm:inline-flex"
+          leadingIcon="chat-conversation"
+          data-feedback-open
+          aria-haspopup="dialog"
+          aria-controls="feedback-modal"
+        >
           Консультация
-        </Button>
-        <Button href="#calculator" variant="primary" leadingIcon="trending-down">
-          Калькулятор
         </Button>
       </div>
     </div>

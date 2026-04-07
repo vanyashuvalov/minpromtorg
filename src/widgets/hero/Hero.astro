@@ -10,6 +10,8 @@ import { site } from "@/shared/config/site";
 import Button from "@/shared/ui/button/Button.astro";
 import Card from "@/shared/ui/card/Card.astro";
 import Icon from "@/shared/ui/icon/Icon.astro";
+
+const [consultationButton, calculatorButton] = site.hero.buttons;
 ---
 
 <section id="top" class="relative scroll-mt-32 overflow-hidden px-4 pb-10 pt-4 sm:px-6 lg:px-8 lg:pb-16">
@@ -31,15 +33,19 @@ import Icon from "@/shared/ui/icon/Icon.astro";
         </p>
 
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          {site.hero.buttons.map((button, index) => (
-            <Button
-              href={button.href}
-              variant={button.variant}
-              leadingIcon={index === 0 ? "chat-conversation" : "trending-down"}
-            >
-              {button.label}
-            </Button>
-          ))}
+          <Button href={calculatorButton.href} variant="primary" leadingIcon="trending-down">
+            {calculatorButton.label}
+          </Button>
+          <Button
+            href={consultationButton.href}
+            variant="secondary"
+            leadingIcon="chat-conversation"
+            data-feedback-open
+            aria-haspopup="dialog"
+            aria-controls="feedback-modal"
+          >
+            {consultationButton.label}
+          </Button>
         </div>
       </div>
 

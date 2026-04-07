@@ -1,0 +1,182 @@
+---
+/*
+File purpose: provide a lightweight feedback modal for consultation requests.
+Why this exists: the landing page needs a simple lead-capture interaction that can be opened from multiple CTAs without duplicating form logic.
+What it does: renders a dialog with two required fields, handles open and close interactions, and shows a small success state after submit.
+Connected to: the consultation buttons in the header, hero, and CTA block, plus the shared button and icon primitives.
+*/
+
+import Button from "@/shared/ui/button/Button.astro";
+import Card from "@/shared/ui/card/Card.astro";
+import Icon from "@/shared/ui/icon/Icon.astro";
+---
+
+<dialog
+  id="feedback-modal"
+  data-feedback-modal
+  aria-labelledby="feedback-modal-title"
+  aria-describedby="feedback-modal-description"
+  class="fixed inset-0 z-[60] m-0 h-full w-full max-w-none bg-transparent p-4 text-[color:var(--text)] outline-none"
+>
+  <div class="flex min-h-full items-center justify-center">
+    <Card class="relative w-full max-w-[560px] overflow-hidden">
+      <button
+        type="button"
+        data-feedback-close
+        aria-label="Закрыть форму"
+        class="absolute right-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--border)] bg-white text-xl leading-none text-[color:var(--text-muted)] transition hover:border-[color:var(--brand)] hover:text-[color:var(--brand)]"
+      >
+        ×
+      </button>
+
+      <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[color:var(--brand-soft)] text-[color:var(--brand)]">
+        <Icon name="phone" size={20} />
+      </div>
+
+      <h2 id="feedback-modal-title" class="mt-5 text-3xl leading-tight">
+        Консультация
+      </h2>
+      <p id="feedback-modal-description" class="mt-3 max-w-lg text-base leading-7 text-[color:var(--text-muted)]">
+        Оставьте имя и номер телефона, и мы свяжемся с вами, чтобы уточнить детали и следующий шаг
+      </p>
+
+      <form data-feedback-form class="mt-8 grid gap-4">
+        <label class="block">
+          <span class="mb-2 block text-sm font-semibold text-[color:var(--text-muted)]">Имя</span>
+          <input
+            name="name"
+            type="text"
+            autocomplete="name"
+            placeholder="Ваше имя"
+            required
+            class="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 text-base text-[color:var(--text)] outline-none transition focus:border-[color:var(--brand)] focus:ring-2 focus:ring-[color:var(--brand-soft)]"
+          />
+        </label>
+
+        <label class="block">
+          <span class="mb-2 block text-sm font-semibold text-[color:var(--text-muted)]">Номер телефона</span>
+          <input
+            name="phone"
+            type="tel"
+            autocomplete="tel"
+            inputmode="tel"
+            placeholder="+7 (999) 123-45-67"
+            required
+            class="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 text-base text-[color:var(--text)] outline-none transition focus:border-[color:var(--brand)] focus:ring-2 focus:ring-[color:var(--brand-soft)]"
+          />
+        </label>
+
+        <div class="mt-2 flex flex-col gap-3 sm:flex-row">
+          <Button as="button" type="submit" variant="primary" leadingIcon="phone" class="sm:flex-1">
+            Отправить
+          </Button>
+          <Button as="button" type="button" variant="secondary" data-feedback-close class="sm:flex-none">
+            Закрыть
+          </Button>
+        </div>
+      </form>
+
+      <div data-feedback-success class="mt-8 hidden rounded-[28px] border border-[color:var(--brand-soft)] bg-[rgba(28,79,215,0.06)] p-5">
+        <p class="text-xl leading-tight">Заявка отправлена</p>
+        <p class="mt-2 text-sm leading-7 text-[color:var(--text-muted)]">
+          Спасибо, мы свяжемся с вами в рабочее время
+        </p>
+      </div>
+    </Card>
+  </div>
+</dialog>
+
+<script>
+  /*
+   * Wire the modal to every consultation CTA on the page.
+   * The interaction stays lightweight: open from any button, lock background scroll, and show a small success state after submit.
+   */
+  const modal = document.querySelector<HTMLDialogElement>("[data-feedback-modal]");
+
+  if (!modal) {
+    throw new Error("Feedback modal was not found.");
+  }
+
+  const openButtons = document.querySelectorAll<HTMLElement>("[data-feedback-open]");
+  const closeButtons = modal.querySelectorAll<HTMLElement>("[data-feedback-close]");
+  const form = modal.querySelector<HTMLFormElement>("[data-feedback-form]");
+  const success = modal.querySelector<HTMLElement>("[data-feedback-success]");
+
+  const lockScroll = () => {
+    document.documentElement.style.overflow = "hidden";
+  };
+
+  const unlockScroll = () => {
+    document.documentElement.style.overflow = "";
+  };
+
+  /*
+   * Reset the modal into its initial state before showing it again.
+   * This keeps repeat opens predictable if the user comes back after a successful submit.
+   */
+  const resetModal = () => {
+    form?.reset();
+    form?.classList.remove("hidden");
+    success?.classList.add("hidden");
+  };
+
+  /*
+   * Open the dialog from any consultation CTA and keep the page background from scrolling.
+   */
+  const openModal = () => {
+    resetModal();
+    modal.showModal();
+    lockScroll();
+  };
+
+  /*
+   * Close the dialog and restore the scroll state after the interaction ends.
+   */
+  const closeModal = () => {
+    if (modal.open) {
+      modal.close();
+    }
+    unlockScroll();
+  };
+
+  openButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      openModal();
+    });
+  });
+
+  closeButtons.forEach((button) => {
+    button.addEventListener("click", closeModal);
+  });
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeModal();
+    }
+  });
+
+  modal.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    closeModal();
+  });
+
+  /*
+   * Keep the modal self-contained for now: the form validates input, then switches to a success state instead of navigating away.
+   * This makes the interaction useful today while leaving the backend integration point open for later.
+   */
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    form.classList.add("hidden");
+    success?.classList.remove("hidden");
+  });
+
+  modal.addEventListener("close", unlockScroll);
+</script>
+
+<style>
+  dialog::backdrop {
+    background: rgba(15, 23, 42, 0.64);
+    backdrop-filter: blur(10px);
+  }
+</style>
