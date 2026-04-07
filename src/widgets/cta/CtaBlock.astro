@@ -6,46 +6,49 @@ What it does: combines a strong message, supporting text, and two calls to actio
 Connected to: the hero and calculator sections, since this block is the end point for consultation and estimation.
 */
 
+import { Image } from "astro:assets";
 import { site } from "@/shared/config/site";
 import Button from "@/shared/ui/button/Button.astro";
 import documentFolders from "../../../document-folders.png";
 ---
 
 <section id="cta" class="scroll-mt-32 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-  <div class="glass-panel-dark relative isolate overflow-hidden rounded-[36px] px-6 py-10 sm:px-8 lg:px-10">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(233,184,115,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(28,79,215,0.2),transparent_35%)]"></div>
+  <div class="mx-auto w-full max-w-[1100px]">
+    <div class="glass-panel-dark relative isolate overflow-hidden rounded-[36px] px-6 py-10 sm:px-8 lg:px-10">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(233,184,115,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(28,79,215,0.2),transparent_35%)]"></div>
 
-    <div class="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[44%] items-end justify-end overflow-hidden">
-      <img
-        src={documentFolders.src}
-        alt="Папки с документами"
-        class="block h-full w-full select-none object-cover object-right-bottom"
-      />
-    </div>
+      <div class="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[42%] items-end justify-end overflow-hidden">
+        <Image
+          src={documentFolders}
+          alt="Папки с документами"
+          class="block h-full w-auto max-w-none select-none object-contain object-right-bottom"
+        />
+      </div>
 
-    <div class="relative z-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
-      <div class="max-w-2xl">
-        <h2 class="mt-4 text-4xl leading-tight text-white sm:text-5xl">
-          {site.cta.title}
-        </h2>
-        <p class="mt-4 max-w-xl text-base leading-7 text-white/72 sm:text-lg">
-          {site.cta.lead}
-        </p>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Button href="#calculator" variant="ghost" leadingIcon="trending-down">
-            Открыть калькулятор
-          </Button>
-          <Button
-            href="#top"
-            variant="secondary"
-            class="bg-white text-[color:var(--text)]"
-            leadingIcon="chat-conversation"
-            data-feedback-open
-            aria-haspopup="dialog"
-            aria-controls="feedback-modal"
-          >
-            Консультация
-          </Button>
+      <div class="relative z-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
+        <div class="max-w-2xl">
+          <h2 class="mt-4 text-4xl leading-tight text-white sm:text-5xl">
+            {site.cta.title}
+          </h2>
+          <p class="mt-4 max-w-xl text-base leading-7 text-white/72 sm:text-lg">
+            {site.cta.lead}
+          </p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button href="#calculator" variant="ghost" leadingIcon="trending-down">
+              Открыть калькулятор
+            </Button>
+            <Button
+              href="#top"
+              variant="secondary"
+              class="bg-white text-[color:var(--text)]"
+              leadingIcon="chat-conversation"
+              data-feedback-open
+              aria-haspopup="dialog"
+              aria-controls="feedback-modal"
+            >
+              Консультация
+            </Button>
+          </div>
         </div>
       </div>
     </div>

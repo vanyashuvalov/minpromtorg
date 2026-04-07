@@ -3,12 +3,11 @@
 File purpose: provide a lightweight feedback modal for consultation requests.
 Why this exists: the landing page needs a simple lead-capture interaction that can be opened from multiple CTAs without duplicating form logic.
 What it does: renders a dialog with two required fields, handles open and close interactions, and shows a small success state after submit.
-Connected to: the consultation buttons in the header, hero, and CTA block, plus the shared button and icon primitives.
+Connected to: the consultation buttons in the header, hero, and CTA block, plus the shared button primitive.
 */
 
 import Button from "@/shared/ui/button/Button.astro";
 import Card from "@/shared/ui/card/Card.astro";
-import Icon from "@/shared/ui/icon/Icon.astro";
 ---
 
 <dialog
@@ -28,10 +27,6 @@ import Icon from "@/shared/ui/icon/Icon.astro";
       >
         ×
       </button>
-
-      <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[color:var(--brand-soft)] text-[color:var(--brand)]">
-        <Icon name="phone" size={20} />
-      </div>
 
       <h2 id="feedback-modal-title" class="mt-5 text-3xl leading-tight">
         Консультация

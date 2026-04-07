@@ -26,8 +26,19 @@ const paddingClasses = {
   md: "p-6",
   lg: "p-8",
 } as const;
+
+const interactionClasses =
+  "transform-gpu motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_32px_96px_rgba(15,23,42,0.16)]";
 ---
 
-<div class:list={["rounded-[var(--radius-xl)]", toneClasses[tone], paddingClasses[padding], className]}>
+<div
+  class:list={[
+    "rounded-[var(--radius-xl)]",
+    interactionClasses,
+    toneClasses[tone],
+    paddingClasses[padding],
+    className,
+  ]}
+>
   <slot />
 </div>
