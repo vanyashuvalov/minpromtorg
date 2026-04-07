@@ -89,17 +89,11 @@ const savingsIcon: CoolIconName = "trending-up";
         <Card class="p-5 sm:p-6">
           <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">Сами</p>
           <p data-field="selfCost" class="mt-3 text-3xl font-semibold text-[color:var(--text)]">0 ₽</p>
-          <p class="mt-3 text-sm leading-7 text-[color:var(--text-muted)]">
-            Если всё делать своими силами, без внешнего сопровождения
-          </p>
         </Card>
 
         <Card class="p-5 sm:p-6 bg-[linear-gradient(135deg,rgba(28,79,215,0.08),rgba(255,255,255,0.96))]">
           <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">С нами</p>
           <p data-field="agencyCost" class="mt-3 text-3xl font-semibold text-[color:var(--text)]">0 ₽</p>
-          <p class="mt-3 text-sm leading-7 text-[color:var(--text-muted)]">
-            Полное сопровождение под ключ с контролем процесса
-          </p>
         </Card>
       </div>
 
@@ -195,7 +189,7 @@ const savingsIcon: CoolIconName = "trending-up";
       const safeValue = clampInput(value, min, max);
       const percent = ((safeValue - min) / (max - min)) * 100;
 
-      input.style.background = `linear-gradient(90deg, rgba(15,23,42,0.42) 0%, rgba(15,23,42,0.42) ${percent}%, rgba(15,23,42,0.10) ${percent}%, rgba(15,23,42,0.10) 100%)`;
+      input.style.background = `linear-gradient(90deg, rgba(168,183,199,0.96) 0%, rgba(168,183,199,0.96) ${percent}%, rgba(226,231,237,1) ${percent}%, rgba(226,231,237,1) 100%)`;
     };
 
     /*
@@ -247,7 +241,7 @@ const savingsIcon: CoolIconName = "trending-up";
       height: 12px;
       border-radius: 999px;
       outline: none;
-      background: linear-gradient(90deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.2) 100%);
+      background: linear-gradient(90deg, rgba(226, 231, 237, 1) 0%, rgba(226, 231, 237, 1) 100%);
     }
 
     .calculator-range::-webkit-slider-runnable-track {
@@ -263,8 +257,8 @@ const savingsIcon: CoolIconName = "trending-up";
       height: 26px;
       border-radius: 999px;
       border: 3px solid #fff;
-      background: #eef1f5;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+      background: #d3dde8;
+      box-shadow: 0 10px 24px rgba(103, 122, 146, 0.16);
       margin-top: -7px;
     }
 
@@ -279,8 +273,8 @@ const savingsIcon: CoolIconName = "trending-up";
       height: 26px;
       border-radius: 999px;
       border: 3px solid #fff;
-      background: #eef1f5;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+      background: #d3dde8;
+      box-shadow: 0 10px 24px rgba(103, 122, 146, 0.16);
     }
   </style>
 </section>

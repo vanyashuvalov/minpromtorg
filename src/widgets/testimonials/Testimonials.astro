@@ -8,7 +8,6 @@ Connected to: the trust story started in the hero and reinforced by the calculat
 
 import { site } from "@/shared/config/site";
 import Card from "@/shared/ui/card/Card.astro";
-import Section from "@/shared/ui/section/Section.astro";
 
 /*
  * Duplicate the testimonial set so the marquee can loop without a visible gap.
@@ -17,41 +16,48 @@ import Section from "@/shared/ui/section/Section.astro";
 const marqueeGroups = [site.testimonials.items, site.testimonials.items] as const;
 ---
 
-<Section
+<section
   id="reviews"
-  title={site.testimonials.title}
-  class="bg-[linear-gradient(180deg,rgba(246,248,251,0.98),rgba(239,243,248,0.96))]"
+  class="relative w-full scroll-mt-32 bg-[color:var(--bg-alt)] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24"
 >
-  <div class="testimonials-marquee">
-    <div class="testimonials-track flex w-max gap-4 py-2">
-      {marqueeGroups.map((group, groupIndex) => (
-        <div class="flex gap-4" aria-hidden={groupIndex === 1 ? "true" : undefined}>
-          {group.map((item) => (
-            <Card class="relative h-full min-h-[220px] shrink-0 p-6" style="width: min(384px, calc(100vw - 2rem));">
-              <div class="flex items-start justify-between gap-4">
-                <div class="flex items-center gap-4">
-                  <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,rgba(28,79,215,0.16),rgba(233,184,115,0.16))] text-lg font-bold text-[color:var(--brand)]">
-                    {item.name[0]}
+  <div class="w-full">
+    <div class="mx-auto mb-10 max-w-3xl text-center">
+      <h2 class="text-3xl leading-[0.96] sm:text-4xl lg:text-5xl">
+        {site.testimonials.title}
+      </h2>
+    </div>
+
+    <div class="testimonials-marquee">
+      <div class="testimonials-track flex w-max gap-4 py-2">
+        {marqueeGroups.map((group, groupIndex) => (
+          <div class="flex gap-4" aria-hidden={groupIndex === 1 ? "true" : undefined}>
+            {group.map((item) => (
+              <Card class="relative h-full min-h-[220px] shrink-0 p-6" style="width: min(384px, calc(100vw - 2rem));">
+                <div class="flex items-start justify-between gap-4">
+                  <div class="flex items-center gap-4">
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,rgba(28,79,215,0.16),rgba(233,184,115,0.16))] text-base font-bold text-[color:var(--brand)]">
+                      {item.name[0]}
+                    </div>
+                    <div>
+                      <p class="font-semibold">{item.name}</p>
+                      <p class="testimonial-role text-sm text-[color:var(--text-soft)]">{item.role}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p class="font-semibold">{item.name}</p>
-                    <p class="text-sm text-[color:var(--text-soft)]">{item.role}</p>
-                  </div>
+
+                  <span class="inline-flex shrink-0 items-center rounded-full border border-[rgba(28,79,215,0.18)] bg-[rgba(28,79,215,0.08)] px-3 py-1 text-xs font-semibold text-[color:var(--text)]">
+                    {item.city}
+                  </span>
                 </div>
 
-                <span class="inline-flex shrink-0 items-center rounded-full border border-[rgba(28,79,215,0.18)] bg-[rgba(28,79,215,0.08)] px-3 py-1 text-xs font-semibold text-[color:var(--text)]">
-                  {item.city}
-                </span>
-              </div>
-
-              <p class="mt-5 text-sm leading-7 text-[color:var(--text-muted)]">«{item.text}»</p>
-            </Card>
-          ))}
-        </div>
-      ))}
+                <p class="mt-5 text-sm leading-7 text-[color:var(--text-muted)]">«{item.text}»</p>
+              </Card>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   </div>
-</Section>
+</section>
 
 <style>
   /*
@@ -68,6 +74,15 @@ const marqueeGroups = [site.testimonials.items, site.testimonials.items] as cons
   .testimonials-track {
     animation: testimonials-scroll 54s linear infinite;
     will-change: transform;
+  }
+
+  .testimonial-role {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
   .testimonials-marquee:hover .testimonials-track {
