@@ -31,16 +31,12 @@ const registryCard = site.hero.registryCard;
           {site.hero.title}
         </h1>
 
-        <p class="mt-4 text-xs font-semibold uppercase tracking-[0.24em] text-white/52">
-          {site.hero.accent}
-        </p>
-
         <p class="mt-6 max-w-xl text-base leading-7 text-white/72 sm:text-lg">
           {site.hero.lead}
         </p>
 
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Button href={calculatorButton.href} variant="primary" leadingIcon="trending-down">
+          <Button href={calculatorButton.href} variant="primary" leadingIcon={calculatorButton.icon}>
             {calculatorButton.label}
           </Button>
           <Button

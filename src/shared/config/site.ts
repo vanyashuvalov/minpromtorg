@@ -15,6 +15,7 @@ const actions = {
     label: "Открыть калькулятор",
     href: "#calculator",
     variant: "secondary" as const,
+    icon: "calculator" as const,
   },
 } as const;
 
@@ -29,7 +30,6 @@ export const site = {
   actions,
   hero: {
     title: "Внесение продукции в реестр Минпромторга",
-    accent: "От подготовки документов до получения статуса",
     lead:
       "Проверим шансы, соберём комплект документов и доведём процесс до результата без лишней бюрократии.",
     buttons: [actions.consultation, actions.calculator],

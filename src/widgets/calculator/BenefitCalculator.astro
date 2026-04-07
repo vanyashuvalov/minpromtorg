@@ -189,7 +189,7 @@ const savingsIcon: CoolIconName = "trending-up";
       const safeValue = clampInput(value, min, max);
       const percent = ((safeValue - min) / (max - min)) * 100;
 
-      input.style.background = `linear-gradient(90deg, rgba(168,183,199,0.96) 0%, rgba(168,183,199,0.96) ${percent}%, rgba(226,231,237,1) ${percent}%, rgba(226,231,237,1) 100%)`;
+      input.style.background = `linear-gradient(90deg, rgba(28,79,215,0.16) 0%, rgba(28,79,215,0.16) ${percent}%, rgba(226,231,237,1) ${percent}%, rgba(226,231,237,1) 100%)`;
     };
 
     /*
@@ -262,6 +262,10 @@ const savingsIcon: CoolIconName = "trending-up";
       margin-top: -7px;
     }
 
+    .calculator-range::-webkit-slider-thumb:hover {
+      filter: brightness(0.92);
+    }
+
     .calculator-range::-moz-range-track {
       height: 12px;
       border-radius: 999px;
@@ -275,6 +279,10 @@ const savingsIcon: CoolIconName = "trending-up";
       border: 3px solid #fff;
       background: #d3dde8;
       box-shadow: 0 10px 24px rgba(103, 122, 146, 0.16);
+    }
+
+    .calculator-range::-moz-range-thumb:hover {
+      filter: brightness(0.92);
     }
   </style>
 </section>

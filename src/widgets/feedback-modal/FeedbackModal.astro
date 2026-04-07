@@ -2,7 +2,7 @@
 /*
 File purpose: provide a lightweight feedback modal for consultation requests.
 Why this exists: the landing page needs a simple lead-capture interaction that can be opened from multiple CTAs without duplicating form logic.
-What it does: renders a dialog with two required fields, handles open and close interactions, and shows a small success state after submit.
+What it does: renders an accessible overlay panel with two required fields, handles open and close interactions, preserves scroll position, and shows a small success state after submit.
 Connected to: the consultation buttons in the header, hero, and CTA block, plus the shared button primitive.
 */
 
@@ -11,15 +11,23 @@ import Button from "@/shared/ui/button/Button.astro";
 import Card from "@/shared/ui/card/Card.astro";
 ---
 
-<dialog
-  id="feedback-modal"
+<div
   data-feedback-modal
-  aria-labelledby="feedback-modal-title"
-  aria-describedby="feedback-modal-description"
-  class="fixed inset-0 z-[60] m-0 h-full w-full max-w-none bg-transparent p-4 text-[color:var(--text)] outline-none"
+  aria-hidden="true"
+  class="fixed inset-0 z-[60] hidden items-center justify-center p-4 text-[color:var(--text)] outline-none"
 >
-  <div data-feedback-backdrop class="flex min-h-full items-center justify-center">
-    <Card class="relative w-full max-w-[560px] overflow-hidden">
+  <div aria-hidden="true" class="absolute inset-0 bg-[rgba(15,23,42,0.64)] backdrop-blur-[10px]"></div>
+  <div class="absolute inset-0 bg-[rgba(15,23,42,0.28)]"></div>
+
+  <div data-feedback-backdrop class="relative z-10 flex min-h-full w-full items-center justify-center">
+    <Card
+      data-feedback-panel
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="feedback-modal-title"
+      aria-describedby="feedback-modal-description"
+      class="relative w-full max-w-[560px] overflow-hidden"
+    >
       <button
         type="button"
         data-feedback-close
@@ -83,14 +91,14 @@ import Card from "@/shared/ui/card/Card.astro";
       </div>
     </Card>
   </div>
-</dialog>
+</div>
 
 <script>
   /*
    * Wire the modal to every consultation CTA on the page.
-   * The interaction stays lightweight: open from any button, lock background scroll, and show a small success state after submit.
+   * The interaction stays lightweight: open from any button, lock background scroll without losing position, and show a small success state after submit.
    */
-  const modal = document.querySelector<HTMLDialogElement>("[data-feedback-modal]");
+  const modal = document.querySelector<HTMLElement>("[data-feedback-modal]");
 
   if (!modal) {
     throw new Error("Feedback modal was not found.");
@@ -101,13 +109,48 @@ import Card from "@/shared/ui/card/Card.astro";
   const closeButtons = modal.querySelectorAll<HTMLElement>("[data-feedback-close]");
   const form = modal.querySelector<HTMLFormElement>("[data-feedback-form]");
   const success = modal.querySelector<HTMLElement>("[data-feedback-success]");
+  const firstInput = modal.querySelector<HTMLInputElement>('input[name="name"]');
 
+  let savedScrollY = 0;
+  let lastTrigger: HTMLElement | null = null;
+
+  /*
+   * Lock the background page without losing the current scroll position.
+   * This prevents the modal from snapping the document back to the top when it opens.
+   */
   const lockScroll = () => {
+    savedScrollY = window.scrollY;
     document.documentElement.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${savedScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
   };
 
+  /*
+   * Restore the page scroll after the modal closes.
+   * This returns the user to the exact point where they opened the dialog.
+   */
   const unlockScroll = () => {
-    document.documentElement.style.overflow = "";
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+
+    /*
+     * Temporarily disable the global smooth-scrolling rule from `src/app/styles/global.css`.
+     * Without this override, restoring `window.scrollTo` can animate the whole page from the top to the saved position, which feels like a jump when the modal closes.
+     */
+    root.style.scrollBehavior = "auto";
+    root.style.overflow = "";
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    window.scrollTo(0, savedScrollY);
+    requestAnimationFrame(() => {
+      root.style.scrollBehavior = previousScrollBehavior;
+    });
   };
 
   /*
@@ -121,28 +164,35 @@ import Card from "@/shared/ui/card/Card.astro";
   };
 
   /*
-   * Open the dialog from any consultation CTA and keep the page background from scrolling.
+   * Open the modal, make it visible, and focus the first field without moving the document.
+   * Using a custom overlay instead of <dialog> avoids browser-specific scroll jumps.
    */
-  const openModal = () => {
+  const openModal = (trigger: HTMLElement) => {
+    lastTrigger = trigger;
     resetModal();
-    modal.showModal();
+    modal.classList.remove("hidden");
+    modal.setAttribute("aria-hidden", "false");
     lockScroll();
+    requestAnimationFrame(() => {
+      firstInput?.focus({ preventScroll: true });
+    });
   };
 
   /*
-   * Close the dialog and restore the scroll state after the interaction ends.
+   * Close the modal, hide the overlay, restore the scroll position, and return focus to the opener.
+   * This keeps keyboard and pointer users in the same place they started from.
    */
   const closeModal = () => {
-    if (modal.open) {
-      modal.close();
-    }
+    modal.classList.add("hidden");
+    modal.setAttribute("aria-hidden", "true");
     unlockScroll();
+    lastTrigger?.focus({ preventScroll: true });
   };
 
   openButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
-      openModal();
+      openModal(button);
     });
   });
 
@@ -156,6 +206,12 @@ import Card from "@/shared/ui/card/Card.astro";
     }
   });
 
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.classList.contains("hidden")) {
+      closeModal();
+    }
+  });
+
   /*
    * Keep the modal self-contained for now: the form validates input, then switches to a success state instead of navigating away.
    * This makes the interaction useful today while leaving the backend integration point open for later.
@@ -165,13 +221,4 @@ import Card from "@/shared/ui/card/Card.astro";
     form.classList.add("hidden");
     success?.classList.remove("hidden");
   });
-
-  modal.addEventListener("close", unlockScroll);
 </script>
-
-<style>
-  dialog::backdrop {
-    background: rgba(15, 23, 42, 0.64);
-    backdrop-filter: blur(10px);
-  }
-</style>
