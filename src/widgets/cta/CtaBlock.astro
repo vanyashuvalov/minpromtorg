@@ -12,10 +12,18 @@ import documentFolders from "../../../document-folders.png";
 ---
 
 <section id="cta" class="scroll-mt-32 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-  <div class="glass-panel-dark relative overflow-hidden rounded-[36px] px-6 py-10 sm:px-8 lg:px-10">
+  <div class="glass-panel-dark relative isolate overflow-hidden rounded-[36px] px-6 py-10 sm:px-8 lg:px-10">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(233,184,115,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(28,79,215,0.2),transparent_35%)]"></div>
 
-    <div class="relative grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
+    <div class="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[44%] items-end justify-end overflow-hidden">
+      <img
+        src={documentFolders.src}
+        alt="Папки с документами"
+        class="block h-full w-full select-none object-cover object-right-bottom"
+      />
+    </div>
+
+    <div class="relative z-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
       <div class="max-w-2xl">
         <h2 class="mt-4 text-4xl leading-tight text-white sm:text-5xl">
           {site.cta.title}
@@ -39,16 +47,6 @@ import documentFolders from "../../../document-folders.png";
             Консультация
           </Button>
         </div>
-      </div>
-
-      <div class="relative self-stretch overflow-hidden rounded-[28px] bg-[rgba(255,255,255,0.08)]">
-        <img
-          src={documentFolders.src}
-          alt="Папки с документами"
-          class="absolute inset-0 h-full w-full select-none object-cover object-[72%_center]"
-        />
-        <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.02),rgba(15,23,42,0.18))]"></div>
-        <div class="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-white/10"></div>
       </div>
     </div>
   </div>

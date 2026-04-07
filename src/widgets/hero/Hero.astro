@@ -15,11 +15,13 @@ const [consultationButton, calculatorButton] = site.hero.buttons;
 ---
 
 <section id="top" class="relative scroll-mt-32 overflow-hidden px-4 pb-10 pt-4 sm:px-6 lg:px-8 lg:pb-16">
-  <div class="relative overflow-hidden rounded-[36px] bg-[linear-gradient(145deg,#0f172a_0%,#16213a_44%,#22325a_100%)] px-6 py-8 text-white shadow-[0_34px_120px_rgba(15,23,42,0.26)] sm:px-8 lg:px-10 lg:py-10">
-    <div class="absolute inset-0 opacity-70">
-      <div class="absolute -left-16 top-[-56px] h-72 w-72 rounded-full bg-[rgba(233,184,115,0.22)] blur-3xl"></div>
-      <div class="absolute right-[-64px] top-12 h-96 w-96 rounded-full bg-[rgba(28,79,215,0.34)] blur-3xl"></div>
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.08),transparent_30%)]"></div>
+  <div class="hero-shell relative overflow-hidden rounded-[36px] px-6 py-8 text-white shadow-[0_34px_120px_rgba(15,23,42,0.26)] sm:px-8 lg:px-10 lg:py-10">
+    <!-- Animated mesh background: a small set of drifting blue and copper glows replaces the older scattered decoration so the hero feels calmer and more focused. -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+      <div class="hero-mesh hero-mesh-blue absolute -left-24 top-[-6rem] h-[24rem] w-[24rem] rounded-full bg-[radial-gradient(circle,rgba(28,79,215,0.58)_0%,rgba(28,79,215,0.16)_34%,rgba(28,79,215,0)_72%)] blur-3xl"></div>
+      <div class="hero-mesh hero-mesh-copper absolute -right-20 bottom-[-7rem] h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(circle,rgba(233,184,115,0.34)_0%,rgba(233,184,115,0.12)_34%,rgba(233,184,115,0)_72%)] blur-3xl"></div>
+      <div class="hero-mesh hero-mesh-center absolute left-1/2 top-1/2 h-[20rem] w-[20rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.09)_0%,rgba(255,255,255,0)_72%)] blur-3xl"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(7,16,33,0.86)_0%,rgba(12,27,57,0.84)_34%,rgba(18,48,101,0.82)_68%,rgba(15,23,42,0.9)_100%)]"></div>
     </div>
 
     <div class="relative grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr]">
@@ -50,9 +52,6 @@ const [consultationButton, calculatorButton] = site.hero.buttons;
       </div>
 
       <div class="relative lg:pl-6">
-        <div class="absolute -left-6 top-10 hidden h-40 w-40 rounded-full border border-white/12 lg:block"></div>
-        <div class="absolute -right-2 bottom-8 hidden h-24 w-24 rounded-full border border-white/14 lg:block"></div>
-
         <Card tone="light" class="relative max-w-md overflow-hidden p-5 sm:p-6">
           <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(248,250,255,0.86))]"></div>
           <div class="relative">
@@ -80,3 +79,44 @@ const [consultationButton, calculatorButton] = site.hero.buttons;
     </div>
   </div>
 </section>
+
+<style>
+  .hero-mesh {
+    animation: hero-mesh-drift 18s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  .hero-mesh-blue {
+    animation-duration: 24s;
+  }
+
+  .hero-mesh-copper {
+    animation-duration: 28s;
+    animation-delay: -8s;
+  }
+
+  .hero-mesh-center {
+    animation-duration: 32s;
+    animation-delay: -14s;
+  }
+
+  @keyframes hero-mesh-drift {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    50% {
+      transform: translate3d(24px, -16px, 0) scale(1.06);
+    }
+
+    100% {
+      transform: translate3d(-18px, 22px, 0) scale(1.03);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-mesh {
+      animation: none;
+    }
+  }
+</style>

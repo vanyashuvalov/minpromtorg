@@ -8,16 +8,20 @@ Connected to: `src/shared/lib/benefit-calculator.ts`, `src/shared/ui/card/Card.a
 
 import Button from "@/shared/ui/button/Button.astro";
 import Card from "@/shared/ui/card/Card.astro";
+import Icon from "@/shared/ui/icon/Icon.astro";
+import type { CoolIconName } from "@/shared/lib/coolicons";
 
 const sliderDefaults = {
   positions: 4,
   hourlyRate: 2500,
   employees: 3,
 } as const;
+
+const savingsIcon: CoolIconName = "trending-up";
 ---
 
 <section id="calculator" class="scroll-mt-32 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-  <div class="mx-auto max-w-5xl">
+  <div class="mx-auto w-full max-w-[720px]">
     <div class="mx-auto max-w-2xl text-center">
       <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--text-soft)]">
         Калькулятор выгоды
@@ -91,7 +95,7 @@ const sliderDefaults = {
         </Card>
 
         <Card class="p-5 sm:p-6 bg-[linear-gradient(135deg,rgba(28,79,215,0.08),rgba(255,255,255,0.96))]">
-          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--brand)]">С нами</p>
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">С нами</p>
           <p data-field="agencyCost" class="mt-3 text-3xl font-semibold text-[color:var(--text)]">0 ₽</p>
           <p class="mt-3 text-sm leading-7 text-[color:var(--text-muted)]">
             Полное сопровождение под ключ с контролем процесса
@@ -99,10 +103,13 @@ const sliderDefaults = {
         </Card>
       </div>
 
-      <Card class="mt-4 bg-[linear-gradient(135deg,rgba(28,79,215,0.12),rgba(233,184,115,0.16))] p-5 sm:p-6">
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <Card class="mt-4 border border-[color:var(--success)] bg-[linear-gradient(135deg,rgba(30,155,93,0.08),rgba(255,255,255,0.98))] p-5 sm:p-6">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">Итоговая выгода</p>
+            <div class="flex items-center gap-2 text-[color:var(--success)]">
+              <Icon name={savingsIcon} size={18} />
+              <p class="text-xs font-semibold uppercase tracking-[0.18em]">Экономия</p>
+            </div>
             <p data-field="savings" class="mt-3 text-4xl font-semibold text-[color:var(--text)]">0 ₽</p>
           </div>
         </div>
