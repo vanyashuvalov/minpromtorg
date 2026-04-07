@@ -3,16 +3,18 @@
 File purpose: standardize card surfaces across the landing page.
 Why this exists: the page uses several boxed content patterns, and keeping them consistent makes the UI feel intentional instead of assembled from random fragments.
 What it does: wraps slotted content in a reusable rounded shell with optional tone and padding variants.
-Connected to: all widgets that need a shared surface treatment, especially hero, calculator, reasons, and testimonials.
+Connected to: all widgets that need a shared surface treatment, especially hero, calculator, testimonials, and CTA blocks.
 */
 
-interface Props {
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {
   tone?: "light" | "dark" | "accent";
   class?: string;
   padding?: "sm" | "md" | "lg";
 }
 
-const { tone = "light", padding = "md", class: className } = Astro.props as Props;
+const { tone = "light", padding = "md", class: className, ...rest } = Astro.props as Props;
 
 const toneClasses = {
   light: "glass-panel text-[color:var(--text)]",
@@ -35,6 +37,7 @@ const paddingClasses = {
     paddingClasses[padding],
     className,
   ]}
+  {...rest}
 >
   <slot />
 </div>

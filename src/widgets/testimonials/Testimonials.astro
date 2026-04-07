@@ -2,36 +2,88 @@
 /*
 File purpose: surface customer feedback as social proof.
 Why this exists: B2B landing pages need trust cues from real experience, especially for a regulatory service where anxiety is high.
-What it does: renders three compact testimonial cards with role context and outcome-oriented quotes.
-Connected to: the trust story started in the hero and reinforced by the calculator and process sections.
+What it does: renders a continuous marquee of compact testimonial cards with role context, city badges, and outcome-oriented quotes.
+Connected to: the trust story started in the hero and reinforced by the calculator and process sections, plus the shared testimonial copy in `src/shared/config/site.ts`.
 */
 
 import { site } from "@/shared/config/site";
 import Card from "@/shared/ui/card/Card.astro";
-import Icon from "@/shared/ui/icon/Icon.astro";
 import Section from "@/shared/ui/section/Section.astro";
+
+/*
+ * Duplicate the testimonial set so the marquee can loop without a visible gap.
+ * This keeps the motion smooth while still sourcing all copy from the shared site config.
+ */
+const marqueeGroups = [site.testimonials.items, site.testimonials.items] as const;
 ---
 
 <Section id="reviews" title={site.testimonials.title}>
-  <div class="grid gap-4 lg:grid-cols-3">
-    {site.testimonials.items.map((item) => (
-      <Card class="relative h-full p-6">
-        <div class="absolute right-6 top-6 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[color:var(--brand-soft)] text-[color:var(--brand)]">
-          <Icon name="chat-check" size={18} />
-        </div>
+  <div class="testimonials-marquee">
+    <div class="testimonials-track flex w-max gap-4 py-2">
+      {marqueeGroups.map((group, groupIndex) => (
+        <div class="flex gap-4" aria-hidden={groupIndex === 1 ? "true" : undefined}>
+          {group.map((item) => (
+            <Card class="relative h-full min-h-[220px] shrink-0 p-6" style="width: min(340px, calc(100vw - 2rem));">
+              <div class="flex items-start justify-between gap-4">
+                <div class="flex items-center gap-4">
+                  <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,rgba(28,79,215,0.16),rgba(233,184,115,0.16))] text-lg font-bold text-[color:var(--brand)]">
+                    {item.name[0]}
+                  </div>
+                  <div>
+                    <p class="font-semibold">{item.name}</p>
+                    <p class="text-sm text-[color:var(--text-soft)]">{item.role}</p>
+                  </div>
+                </div>
 
-        <div class="flex items-center gap-4 pr-12">
-          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,rgba(28,79,215,0.16),rgba(233,184,115,0.16))] text-lg font-bold text-[color:var(--brand)]">
-            {item.name[0]}
-          </div>
-          <div>
-            <p class="font-semibold">{item.name}</p>
-            <p class="text-sm text-[color:var(--text-soft)]">{item.role}</p>
-          </div>
-        </div>
+                <span class="inline-flex shrink-0 items-center rounded-full border border-[rgba(28,79,215,0.18)] bg-[rgba(28,79,215,0.08)] px-3 py-1 text-xs font-semibold text-[color:var(--text)]">
+                  {item.city}
+                </span>
+              </div>
 
-        <p class="mt-5 text-sm leading-7 text-[color:var(--text-muted)]">«{item.text}»</p>
-      </Card>
-    ))}
+              <p class="mt-5 text-sm leading-7 text-[color:var(--text-muted)]">«{item.text}»</p>
+            </Card>
+          ))}
+        </div>
+      ))}
+    </div>
   </div>
 </Section>
+
+<style>
+  /*
+   * Animate the testimonials as a slow marquee.
+   * The track moves from right to left, loops seamlessly, and pauses on hover so the reader can stop on any card.
+   * This is scoped to the testimonials widget and relies on the duplicated groups above.
+   */
+  .testimonials-marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .testimonials-track {
+    animation: testimonials-scroll 54s linear infinite;
+    will-change: transform;
+  }
+
+  .testimonials-marquee:hover .testimonials-track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimonials-track {
+      animation: none;
+      transform: none;
+    }
+  }
+
+  @keyframes testimonials-scroll {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>
