@@ -1,0 +1,27 @@
+---
+/*
+File purpose: provide a simple privacy policy page for consent links used in the feedback modal and footer.
+Why this exists: the landing page collects contact details, so the user needs a clear destination for the policy link instead of a broken placeholder.
+What it does: shows a concise policy placeholder page with the same site framing as the rest of the landing experience.
+Connected to: the feedback modal and footer links.
+*/
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/widgets/header/Header.astro";
+import Footer from "@/widgets/footer/Footer.astro";
+---
+
+<BaseLayout title="Политика конфиденциальности" description="Политика конфиденциальности сайта Minpromtorg">
+  <Header />
+  <main class="px-4 py-24 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="text-4xl leading-tight sm:text-5xl">Политика конфиденциальности</h1>
+      <div class="mt-6 space-y-4 text-base leading-7 text-[color:var(--text-muted)]">
+        <p>Мы используем ваши данные только для обработки заявки и обратной связи по консультации.</p>
+        <p>Отправляя форму, вы подтверждаете согласие на обработку персональных данных в целях связи с вами.</p>
+        <p>Если нужна полная версия политики для публикации, её можно добавить на эту страницу без изменения ссылок.</p>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

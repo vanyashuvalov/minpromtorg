@@ -66,6 +66,12 @@ import Card from "@/shared/ui/card/Card.astro";
             Отправить
           </Button>
         </div>
+        <p class="text-sm leading-6 text-[color:var(--text-muted)]">
+          Нажимая на кнопку, вы соглашаетесь с
+          <a href="/privacy" class="text-[color:var(--text)] underline decoration-[color:var(--border)] underline-offset-4 transition hover:decoration-[color:var(--brand)] hover:text-[color:var(--brand)]">
+            политикой конфиденциальности
+          </a>
+        </p>
       </form>
 
       <div data-feedback-success class="mt-8 hidden rounded-[28px] border border-[color:var(--brand-soft)] bg-[rgba(28,79,215,0.06)] p-5">
