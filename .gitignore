@@ -1,0 +1,13 @@
+# This file keeps generated, local, and deployment-specific artifacts out of version control.
+# It exists because the project is being initialized from scratch and should stay clean for Astro builds and Vercel deploys.
+# It is connected to the future Astro app, local development tooling, and build outputs.
+
+node_modules
+.astro
+dist
+.vercel
+.env
+.env.*
+coverage
+*.log
+

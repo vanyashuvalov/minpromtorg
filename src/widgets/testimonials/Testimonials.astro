@@ -1,0 +1,37 @@
+---
+/*
+File purpose: surface customer feedback as social proof.
+Why this exists: B2B landing pages need trust cues from real experience, especially for a regulatory service where anxiety is high.
+What it does: renders three compact testimonial cards with role context and outcome-oriented quotes.
+Connected to: the trust story started in the hero and reinforced by the calculator and process sections.
+*/
+
+import { site } from "@/shared/config/site";
+import Card from "@/shared/ui/card/Card.astro";
+import Icon from "@/shared/ui/icon/Icon.astro";
+import Section from "@/shared/ui/section/Section.astro";
+---
+
+<Section id="reviews" title={site.testimonials.title}>
+  <div class="grid gap-4 lg:grid-cols-3">
+    {site.testimonials.items.map((item) => (
+      <Card class="relative h-full p-6">
+        <div class="absolute right-6 top-6 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[color:var(--brand-soft)] text-[color:var(--brand)]">
+          <Icon name="chat-check" size={18} />
+        </div>
+
+        <div class="flex items-center gap-4 pr-12">
+          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,rgba(28,79,215,0.16),rgba(233,184,115,0.16))] text-lg font-bold text-[color:var(--brand)]">
+            {item.name[0]}
+          </div>
+          <div>
+            <p class="font-semibold">{item.name}</p>
+            <p class="text-sm text-[color:var(--text-soft)]">{item.role}</p>
+          </div>
+        </div>
+
+        <p class="mt-5 text-sm leading-7 text-[color:var(--text-muted)]">“{item.text}”</p>
+      </Card>
+    ))}
+  </div>
+</Section>

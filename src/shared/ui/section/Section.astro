@@ -1,0 +1,37 @@
+---
+/*
+File purpose: provide a consistent outer shell for every major landing-page section.
+Why this exists: the page should feel like one system, so each block uses the same spacing and intro pattern without repeating wrappers everywhere.
+What it does: wraps section content with a reusable full-width shell and optional dark or dense visual modes.
+Connected to: all page widgets that represent a large logical block.
+*/
+
+interface Props {
+  id?: string;
+  title?: string;
+  lead?: string;
+  dark?: boolean;
+  dense?: boolean;
+  class?: string;
+}
+
+const { id, title, lead, dark = false, dense = false, class: className } = Astro.props as Props;
+---
+
+<section
+  id={id}
+  class:list={[
+    "relative w-full scroll-mt-32 px-4 sm:px-6 lg:px-8",
+    dense ? "py-12 sm:py-14" : "py-16 sm:py-20 lg:py-24",
+    dark ? "text-white" : "text-[color:var(--text)]",
+    className,
+  ]}
+>
+  {title || lead ? (
+    <div class="mb-10 max-w-3xl">
+      {title ? <h2 class:list={["text-3xl leading-[0.96] sm:text-4xl lg:text-5xl", dark && "text-white"]}>{title}</h2> : null}
+      {lead ? <p class:list={["mt-4 max-w-2xl text-base leading-7 sm:text-lg", dark ? "text-white/72" : "text-[color:var(--text-muted)]"]}>{lead}</p> : null}
+    </div>
+  ) : null}
+  <slot />
+</section>

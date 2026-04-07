@@ -1,0 +1,33 @@
+---
+/*
+File purpose: show the end-to-end working process in four simple steps.
+Why this exists: the product is complex enough that a clear sequence reduces anxiety and makes the service feel manageable.
+What it does: turns the service flow into a four-step timeline with compact explanations.
+Connected to: the hero promise, the calculator, and the CTA because all three depend on a clear service route.
+*/
+
+import { site } from "@/shared/config/site";
+import Card from "@/shared/ui/card/Card.astro";
+import type { CoolIconName } from "@/shared/lib/coolicons";
+import Icon from "@/shared/ui/icon/Icon.astro";
+import Section from "@/shared/ui/section/Section.astro";
+
+const stepIcons: CoolIconName[] = ["file-document", "calendar-check", "chat-conversation", "shield-check"];
+---
+
+<Section id="process" title={site.process.title}>
+  <div class="grid gap-4 lg:grid-cols-4">
+    {site.process.steps.map((step, index) => (
+      <Card class="relative h-full overflow-hidden p-6">
+        <div class="absolute right-4 top-4 text-5xl font-semibold text-[color:var(--brand-soft)]">
+          {step.number}
+        </div>
+        <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[color:var(--brand-soft)] text-[color:var(--brand)]">
+          <Icon name={stepIcons[index]} size={20} />
+        </div>
+        <h3 class="mt-8 text-2xl leading-tight">{step.title}</h3>
+        <p class="mt-4 text-sm leading-7 text-[color:var(--text-muted)]">{step.text}</p>
+      </Card>
+    ))}
+  </div>
+</Section>

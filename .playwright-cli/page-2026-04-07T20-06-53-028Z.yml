@@ -1,0 +1,71 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - banner [ref=e5]:
+      - generic [ref=e7]:
+        - link "Минпромреестр" [ref=e8] [cursor=pointer]:
+          - /url: "#top"
+          - text: Минпромреестр Внесение продукции в реестр Минпромторга
+        - navigation "Основная навигация" [ref=e9]:
+          - link "Платформа" [ref=e10] [cursor=pointer]:
+            - /url: "#platform"
+          - link "Возможности" [ref=e11] [cursor=pointer]:
+            - /url: "#features"
+            - text: Возможности
+            - img [ref=e12]
+          - link "Проекты" [ref=e14] [cursor=pointer]:
+            - /url: "#projects"
+          - link "Сообщество" [ref=e15] [cursor=pointer]:
+            - /url: "#community"
+          - link "Контакты" [ref=e16] [cursor=pointer]:
+            - /url: "#contact"
+        - generic [ref=e17]:
+          - button "Оставить заявку" [ref=e18]
+          - button "Получить консультацию" [ref=e19]
+    - main [ref=e20]:
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - generic [ref=e24]:
+            - img [ref=e25]
+            - text: Новое
+          - text: Проверка включения без лишней бюрократии
+        - generic [ref=e27]:
+          - heading "Внесение продукции в реестр Минпромторга" [level=1] [ref=e28]
+          - paragraph [ref=e29]: Поможем собрать пакет документов, проверить требования и пройти включение без повторной подачи.
+        - generic [ref=e31]:
+          - generic [ref=e32]:
+            - generic [ref=e33]:
+              - text: Бесплатная первичная проверка
+              - button "Запросить список документов" [ref=e34]
+            - generic [ref=e35]:
+              - img [ref=e36]
+              - text: По регламентам Минпромторга
+          - generic [ref=e39]:
+            - textbox "Опишите продукцию, код ТН ВЭД или задайте вопрос..." [ref=e40]
+            - button "Отправить запрос" [ref=e41]:
+              - text: Отправить запрос
+              - img [ref=e42]
+          - generic [ref=e44]:
+            - generic [ref=e45]:
+              - button "Прикрепить" [ref=e46]:
+                - img [ref=e47]
+                - text: Прикрепить
+              - button "Голосом" [ref=e49]:
+                - img [ref=e50]
+                - text: Голосом
+              - button "Подсказки" [ref=e52]:
+                - img [ref=e53]
+                - text: Подсказки
+            - generic [ref=e55]: 0/3,000
+  - generic [ref=e58]:
+    - button "Menu" [ref=e59]:
+      - img [ref=e61]
+      - generic: Menu
+    - button "Inspect" [ref=e65]:
+      - img [ref=e67]
+      - generic: Inspect
+    - button "Audit" [ref=e69]:
+      - img [ref=e71]
+      - generic: Audit
+    - button "Settings" [ref=e74]:
+      - img [ref=e76]
+      - generic: Settings

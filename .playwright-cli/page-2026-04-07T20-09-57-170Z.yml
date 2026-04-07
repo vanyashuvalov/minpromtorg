@@ -1,0 +1,81 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "Минпромреестр" [ref=e6] [cursor=pointer]:
+          - /url: "#top"
+          - generic [ref=e7]: Минпромреестр
+          - generic [ref=e8]: Внесение продукции в реестр Минпромторга
+        - navigation "Основная навигация" [ref=e9]:
+          - link "Платформа" [ref=e10] [cursor=pointer]:
+            - /url: "#platform"
+            - generic [ref=e11]: Платформа
+          - link "Возможности" [ref=e12] [cursor=pointer]:
+            - /url: "#features"
+            - generic [ref=e13]: Возможности
+            - img [ref=e14]
+          - link "Проекты" [ref=e16] [cursor=pointer]:
+            - /url: "#projects"
+            - generic [ref=e17]: Проекты
+          - link "Сообщество" [ref=e18] [cursor=pointer]:
+            - /url: "#community"
+            - generic [ref=e19]: Сообщество
+          - link "Контакты" [ref=e20] [cursor=pointer]:
+            - /url: "#contact"
+            - generic [ref=e21]: Контакты
+        - generic [ref=e22]:
+          - button "Оставить заявку" [ref=e23]:
+            - generic [ref=e24]: Оставить заявку
+          - button "Получить консультацию" [ref=e25]:
+            - generic [ref=e26]: Получить консультацию
+    - main [ref=e27]:
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - generic [ref=e31]:
+            - img [ref=e32]
+            - generic [ref=e34]: Новое
+          - generic [ref=e35]: Проверка включения без лишней бюрократии
+        - generic [ref=e36]:
+          - heading "Внесение продукции в реестр Минпромторга" [level=1] [ref=e37]:
+            - generic [ref=e38]: Внесение продукции
+            - generic [ref=e39]: в реестр Минпромторга
+          - paragraph [ref=e40]: Поможем собрать пакет документов, проверить требования и пройти включение без повторной подачи.
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - generic [ref=e44]:
+              - generic [ref=e45]: Бесплатная первичная проверка
+              - button "Запросить список документов" [ref=e46]:
+                - generic [ref=e47]: Запросить список документов
+            - generic [ref=e48]:
+              - img [ref=e49]
+              - generic [ref=e51]: По регламентам Минпромторга
+          - generic [ref=e53]:
+            - textbox "Опишите продукцию, код ТН ВЭД или задайте вопрос..." [ref=e54]
+            - button "Отправить запрос" [ref=e55]:
+              - generic [ref=e56]: Отправить запрос
+              - img [ref=e57]
+          - generic [ref=e59]:
+            - generic [ref=e60]:
+              - button "Прикрепить" [ref=e61]:
+                - img [ref=e62]
+                - generic [ref=e64]: Прикрепить
+              - button "Голосом" [ref=e65]:
+                - img [ref=e66]
+                - generic [ref=e68]: Голосом
+              - button "Подсказки" [ref=e69]:
+                - img [ref=e70]
+                - generic [ref=e72]: Подсказки
+            - generic [ref=e73]: 0/3,000
+  - generic [ref=e76]:
+    - button "Menu" [ref=e77]:
+      - img [ref=e79]
+      - generic: Menu
+    - button "Inspect" [ref=e83]:
+      - img [ref=e85]
+      - generic: Inspect
+    - button "Audit" [ref=e87]:
+      - img [ref=e89]
+      - generic: Audit
+    - button "Settings" [ref=e92]:
+      - img [ref=e94]
+      - generic: Settings

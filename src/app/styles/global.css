@@ -1,0 +1,99 @@
+/*
+File purpose: define the global visual system for the Minpromtorg landing page.
+Why this exists: the page needs one shared foundation for typography, colors, spacing, and background atmosphere instead of repeating style rules in every section.
+What it does: imports Tailwind, sets the design tokens, and defines a few project-wide utility classes used by the layout and widgets.
+Connected to: `src/layouts/BaseLayout.astro`, all widgets, and every reusable UI component on the page.
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap");
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #eef2f7;
+    --bg-alt: #f7f9fc;
+    --surface: rgba(255, 255, 255, 0.84);
+    --surface-strong: #ffffff;
+    --surface-dark: #10182a;
+    --surface-dark-2: #17223a;
+    --border: rgba(16, 24, 42, 0.12);
+    --border-dark: rgba(255, 255, 255, 0.12);
+    --text: #0d1320;
+    --text-muted: rgba(13, 19, 32, 0.68);
+    --text-soft: rgba(13, 19, 32, 0.45);
+    --brand: #1c4fd7;
+    --brand-strong: #173cb0;
+    --brand-soft: rgba(28, 79, 215, 0.1);
+    --accent: #e9b873;
+    --success: #1e9b5d;
+    --shadow: 0 24px 90px rgba(15, 23, 42, 0.12);
+    --shadow-strong: 0 28px 90px rgba(15, 23, 42, 0.18);
+    --radius-xl: 28px;
+    --radius-lg: 22px;
+    --radius-md: 18px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+    color: var(--text);
+    background:
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.95), transparent 26%),
+      radial-gradient(circle at top right, rgba(28, 79, 215, 0.12), transparent 30%),
+      linear-gradient(180deg, #e8eef7 0%, #f7f9fc 36%, #eef3f8 100%);
+    font-family: "Manrope", "Segoe UI", sans-serif;
+    text-rendering: geometricPrecision;
+  }
+
+  ::selection {
+    color: #fff;
+    background: rgba(28, 79, 215, 0.88);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-family: "Fraunces", Georgia, serif;
+    letter-spacing: -0.03em;
+  }
+
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(24px);
+  }
+
+  .glass-panel-dark {
+    border: 1px solid var(--border-dark);
+    background: rgba(15, 23, 42, 0.7);
+    box-shadow: var(--shadow-strong);
+    backdrop-filter: blur(22px);
+  }
+
+  .section-grid {
+    background-image:
+      linear-gradient(rgba(17, 24, 39, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(17, 24, 39, 0.035) 1px, transparent 1px);
+    background-size: 34px 34px;
+  }
+
+  .soft-ring {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+  }
+}

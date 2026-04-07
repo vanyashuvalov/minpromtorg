@@ -1,0 +1,76 @@
+---
+/*
+File purpose: create the opening hero block for the landing page.
+Why this exists: the hero has to combine the main promise, two actions, and a trust card in one clear above-the-fold composition.
+What it does: presents the headline, support copy, CTA buttons, and the approved application card on the right.
+Connected to: `src/shared/config/site.ts`, `src/shared/ui/button/Button.astro`, and the calculator and CTA anchors further down the page.
+*/
+
+import { site } from "@/shared/config/site";
+import Button from "@/shared/ui/button/Button.astro";
+import Card from "@/shared/ui/card/Card.astro";
+import Icon from "@/shared/ui/icon/Icon.astro";
+---
+
+<section id="top" class="relative scroll-mt-32 overflow-hidden px-4 pb-10 pt-4 sm:px-6 lg:px-8 lg:pb-16">
+  <div class="relative overflow-hidden rounded-[36px] bg-[linear-gradient(145deg,#0f172a_0%,#16213a_44%,#22325a_100%)] px-6 py-8 text-white shadow-[0_34px_120px_rgba(15,23,42,0.26)] sm:px-8 lg:px-10 lg:py-10">
+    <div class="absolute inset-0 opacity-70">
+      <div class="absolute -left-16 top-[-56px] h-72 w-72 rounded-full bg-[rgba(233,184,115,0.22)] blur-3xl"></div>
+      <div class="absolute right-[-64px] top-12 h-96 w-96 rounded-full bg-[rgba(28,79,215,0.34)] blur-3xl"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.08),transparent_30%)]"></div>
+    </div>
+
+    <div class="relative grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr]">
+      <div class="max-w-2xl">
+        <h1 class="mt-5 text-5xl leading-[0.92] sm:text-6xl lg:text-[5.15rem]">
+          {site.hero.title}
+        </h1>
+
+        <p class="mt-6 max-w-xl text-base leading-7 text-white/72 sm:text-lg">
+          {site.hero.lead}
+        </p>
+
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          {site.hero.buttons.map((button, index) => (
+            <Button
+              href={button.href}
+              variant={button.variant}
+              leadingIcon={index === 0 ? "chat-conversation" : "trending-down"}
+            >
+              {button.label}
+            </Button>
+          ))}
+        </div>
+      </div>
+
+      <div class="relative lg:pl-6">
+        <div class="absolute -left-6 top-10 hidden h-40 w-40 rounded-full border border-white/12 lg:block"></div>
+        <div class="absolute -right-2 bottom-8 hidden h-24 w-24 rounded-full border border-white/14 lg:block"></div>
+
+        <Card tone="light" class="relative max-w-md overflow-hidden p-5 sm:p-6">
+          <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(248,250,255,0.86))]"></div>
+          <div class="relative">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-[11px] font-semibold uppercase tracking-[0.24em] text-[color:var(--text-soft)]">
+                  Статус заявки
+                </p>
+                <p class="mt-2 text-2xl leading-none text-[color:var(--text)]">Одобрено</p>
+              </div>
+              <div class="flex h-11 w-11 items-center justify-center rounded-full bg-[color:var(--brand-soft)] text-[color:var(--brand)]">
+                <Icon name="check-big" size={18} />
+              </div>
+            </div>
+
+            <div class="mt-6 rounded-[22px] border border-[color:var(--border)] bg-white px-4 py-4">
+              <p class="text-sm font-medium text-[color:var(--text-muted)]">Заявка на внесение продукции</p>
+              <div class="mt-3 h-2 rounded-full bg-[rgba(15,23,42,0.06)]">
+                <div class="h-2 w-[88%] rounded-full bg-[linear-gradient(90deg,#1c4fd7,#8fb1ff)]"></div>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </div>
+</section>

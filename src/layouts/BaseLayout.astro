@@ -1,0 +1,32 @@
+---
+/*
+File purpose: define the shared HTML shell for the Minpromtorg landing page.
+Why this exists: the page needs one place for metadata, global styles, and structural wrappers so the widgets stay focused on content.
+What it does: sets the document language, meta tags, imports the global stylesheet, and exposes a content slot.
+Connected to: `src/pages/index.astro`, `src/app/styles/global.css`, and all landing widgets rendered inside the shell.
+*/
+
+import "@/app/styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props as Props;
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#eef2f7" />
+    <link rel="icon" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="antialiased">
+    <slot />
+  </body>
+</html>

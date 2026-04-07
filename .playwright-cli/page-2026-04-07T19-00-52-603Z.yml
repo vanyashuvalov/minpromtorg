@@ -1,0 +1,74 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Внесение продукции в реестр Минпромторга" [ref=e5] [cursor=pointer]:
+        - /url: "#top"
+        - generic [ref=e6]: МПТ
+        - generic [ref=e7]:
+          - strong [ref=e8]: Реестр Минпромторга
+          - generic [ref=e9]: Технологичное сопровождение
+      - generic [ref=e10]:
+        - generic [ref=e12]: Минпромторг
+        - link "Получить расчёт" [ref=e15] [cursor=pointer]:
+          - /url: "#hero-status"
+          - generic [ref=e16]: Получить расчёт
+          - generic [ref=e17]: →
+  - main [ref=e18]:
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - generic [ref=e24]: Реестр Минпромторга
+        - generic [ref=e26]:
+          - heading "Внесение продукции в реестр Минпромторга" [level=1] [ref=e27]:
+            - text: Внесение продукции
+            - text: в реестр Минпромторга
+          - paragraph [ref=e28]: От подготовки документов до получения статуса.
+        - generic [ref=e29]:
+          - link "Получить расчёт за 15 минут" [ref=e30] [cursor=pointer]:
+            - /url: "#hero-status"
+            - generic [ref=e31]: Получить расчёт за 15 минут
+            - generic [ref=e32]: →
+          - paragraph [ref=e33]: Средний срок оформления — 14 дней
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - generic [ref=e36]: Сопроводительный пакет
+            - generic [ref=e37]: OK
+          - generic [ref=e38]:
+            - generic [ref=e39]: Проверка оснований
+            - generic [ref=e40]: OK
+          - generic [ref=e41]:
+            - generic [ref=e42]: Статусная фиксация
+            - generic [ref=e43]: OK
+      - article [ref=e46]:
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - generic [ref=e49]: Статус подтверждён
+            - generic [ref=e51]:
+              - generic [ref=e52]: Номер записи
+              - generic [ref=e53]: РПП-2026-18492
+          - generic [ref=e54]: Active
+        - generic [ref=e55]:
+          - generic [ref=e56]:
+            - generic [ref=e57]: Номер записи
+            - generic [ref=e58]: РПП-2026-18492
+          - generic [ref=e59]:
+            - generic [ref=e60]: Проверка
+            - generic [ref=e61]: Подтверждена
+          - generic [ref=e62]:
+            - generic [ref=e63]: Срок
+            - generic [ref=e64]: 14 дней
+        - generic [ref=e66]:
+          - generic [ref=e67]: Проверка пакета
+          - generic [ref=e68]: 11:42 / 3 этапа
+  - generic [ref=e73]:
+    - button "Menu" [ref=e74]:
+      - img [ref=e76]
+      - generic: Menu
+    - button "Inspect" [ref=e80]:
+      - img [ref=e82]
+      - generic: Inspect
+    - button "Audit" [ref=e84]:
+      - img [ref=e86]
+      - generic: Audit
+    - button "Settings" [ref=e89]:
+      - img [ref=e91]
+      - generic: Settings

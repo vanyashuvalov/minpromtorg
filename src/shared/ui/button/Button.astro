@@ -1,0 +1,54 @@
+---
+/*
+File purpose: provide a single reusable CTA button for the landing page.
+Why this exists: the hero, calculator, and CTA blocks all need the same button language without duplicating styles or behavior.
+What it does: renders either a primary, secondary, or ghost action while preserving a consistent focus and hover treatment.
+Connected to: `src/widgets/hero/Hero.astro`, `src/widgets/cta/CtaBlock.astro`, and the page header.
+*/
+import Icon from "@/shared/ui/icon/Icon.astro";
+import type { CoolIconName } from "@/shared/lib/coolicons";
+
+type Variant = "primary" | "secondary" | "ghost";
+
+interface Props {
+  href: string;
+  variant?: Variant;
+  class?: string;
+  target?: string;
+  rel?: string;
+  leadingIcon?: CoolIconName;
+  trailingIcon?: CoolIconName;
+}
+
+const {
+  href,
+  variant = "primary",
+  class: className,
+  leadingIcon,
+  trailingIcon,
+  ...rest
+} = Astro.props as Props;
+
+const variantClasses: Record<Variant, string> = {
+  primary:
+    "border border-[rgba(183,111,42,0.38)] bg-[linear-gradient(135deg,#d88a39_0%,#efb160_52%,#b96a27_100%)] text-[#1b1208] shadow-[0_18px_40px_rgba(184,111,42,0.26)] hover:-translate-y-0.5 hover:brightness-[1.02]",
+  secondary:
+    "border border-[color:var(--border)] bg-white/80 text-[color:var(--text)] hover:border-[color:var(--brand)] hover:text-[color:var(--brand)]",
+  ghost:
+    "border border-white/15 bg-white/10 text-white hover:bg-white/16 hover:border-white/25",
+};
+---
+
+<a
+  href={href}
+  class:list={[
+    "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
+    variantClasses[variant],
+    className,
+  ]}
+  {...rest}
+>
+  {leadingIcon ? <Icon name={leadingIcon} class="text-current" size={18} /> : null}
+  <slot />
+  {trailingIcon ? <Icon name={trailingIcon} class="text-current" size={18} /> : null}
+</a>

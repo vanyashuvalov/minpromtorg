@@ -1,0 +1,30 @@
+---
+/*
+File purpose: explain the tangible value of the registry status.
+Why this exists: the landing page should not only sell the service, but also show why the result matters for the customer's business.
+What it does: displays four benefit cards that translate the status into procurement, proof, risk, and negotiation advantages.
+Connected to: the calculator section and the process section, because the value statement supports the conversion path.
+*/
+
+import { site } from "@/shared/config/site";
+import Card from "@/shared/ui/card/Card.astro";
+import type { CoolIconName } from "@/shared/lib/coolicons";
+import Icon from "@/shared/ui/icon/Icon.astro";
+import Section from "@/shared/ui/section/Section.astro";
+
+const benefitIcons: CoolIconName[] = ["building-04", "file-document", "shield-check", "users-group"];
+---
+
+<Section id="benefits" title={site.benefits.title}>
+  <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    {site.benefits.items.map((item, index) => (
+      <Card class="h-full p-6">
+        <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[color:var(--brand-soft)] text-[color:var(--brand)]">
+          <Icon name={benefitIcons[index]} size={20} />
+        </div>
+        <h3 class="mt-4 text-2xl leading-tight">{item.title}</h3>
+        <p class="mt-4 text-sm leading-7 text-[color:var(--text-muted)]">{item.text}</p>
+      </Card>
+    ))}
+  </div>
+</Section>

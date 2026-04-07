@@ -1,0 +1,36 @@
+---
+/*
+File purpose: assemble the full Minpromtorg landing page from reusable widgets.
+Why this exists: the home page is the product entry point, and it should compose all sections in one predictable order.
+What it does: mounts the shared layout, header, hero, calculator, explanatory blocks, testimonials, CTA, and footer.
+Connected to: every file in `src/layouts`, `src/shared`, and `src/widgets`.
+*/
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import CtaBlock from "@/widgets/cta/CtaBlock.astro";
+import Footer from "@/widgets/footer/Footer.astro";
+import Header from "@/widgets/header/Header.astro";
+import Hero from "@/widgets/hero/Hero.astro";
+import BenefitCalculator from "@/widgets/calculator/BenefitCalculator.astro";
+import RegistryBenefits from "@/widgets/registry-benefits/RegistryBenefits.astro";
+import TurnkeyProcess from "@/widgets/turnkey-process/TurnkeyProcess.astro";
+import WhyUs from "@/widgets/reasons/WhyUs.astro";
+import Testimonials from "@/widgets/testimonials/Testimonials.astro";
+---
+
+<BaseLayout
+  title="Внесение продукции в реестр Минпромторга"
+  description="Лендинг о внесении продукции в реестр Минпромторга: подготовка документов, калькулятор выгоды, этапы работы под ключ, преимущества и отзывы."
+>
+  <Header />
+  <main class="relative pt-24 sm:pt-28 lg:pt-32">
+    <Hero />
+    <BenefitCalculator />
+    <RegistryBenefits />
+    <TurnkeyProcess />
+    <WhyUs />
+    <Testimonials />
+    <CtaBlock />
+  </main>
+  <Footer />
+</BaseLayout>

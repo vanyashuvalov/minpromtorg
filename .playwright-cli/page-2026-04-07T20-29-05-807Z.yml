@@ -1,0 +1,58 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Минпромреестр" [ref=e5] [cursor=pointer]:
+        - /url: "#top"
+        - generic [ref=e6]: Минпромреестр
+      - link "Расчёт за 5 минут" [ref=e7] [cursor=pointer]:
+        - /url: "#contact"
+        - generic [ref=e8]: Расчёт за 5 минут
+  - main [ref=e9]:
+    - generic [ref=e14]:
+      - generic [ref=e16]:
+        - paragraph [ref=e17]: Реестр Минпромторга
+        - heading "Внесение продукции в реестр Минпромторга" [level=1] [ref=e18]:
+          - generic [ref=e19]: Внесение продукции
+          - generic [ref=e20]: в реестр
+          - generic [ref=e21]: Минпромторга
+        - paragraph [ref=e22]: От подготовки документов до получения статуса
+        - generic [ref=e23]:
+          - link "Расчёт за 5 минут" [ref=e24] [cursor=pointer]:
+            - /url: "#contact"
+            - img [ref=e25]
+            - generic [ref=e27]: Расчёт за 5 минут
+          - link "Бесплатная консультация" [ref=e28] [cursor=pointer]:
+            - /url: "#contact"
+        - generic [ref=e29]:
+          - img [ref=e30]
+          - generic [ref=e32]: Средний срок оформления — 14 дней
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e37]: Реестр Российской Промышленной Продукции
+          - heading "Статус подтверждён" [level=2] [ref=e38]:
+            - generic [ref=e39]: Статус
+            - generic [ref=e40]: подтверждён
+          - generic [ref=e42]:
+            - generic [ref=e43]:
+              - paragraph [ref=e44]: Номер записи
+              - paragraph [ref=e45]: РПП-0912112
+            - button "Активен" [ref=e46]:
+              - generic [ref=e47]: Активен
+          - paragraph [ref=e48]: Заявка №92294 Одобрено сегодня
+        - generic [ref=e49]:
+          - generic [ref=e50]: До 14 дней
+          - generic [ref=e51]: Быстро
+          - generic [ref=e52]: Без вашего участия
+  - generic [ref=e55]:
+    - button "Menu" [ref=e56]:
+      - img [ref=e58]
+      - generic: Menu
+    - button "Inspect" [ref=e62]:
+      - img [ref=e64]
+      - generic: Inspect
+    - button "Audit" [ref=e66]:
+      - img [ref=e68]
+      - generic: Audit
+    - button "Settings" [ref=e71]:
+      - img [ref=e73]
+      - generic: Settings

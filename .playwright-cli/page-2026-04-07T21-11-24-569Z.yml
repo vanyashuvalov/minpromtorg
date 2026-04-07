@@ -1,0 +1,231 @@
+- generic [active] [ref=e1]:
+  - banner:
+    - generic [ref=e3]:
+      - link "Минпромторг" [ref=e4] [cursor=pointer]:
+        - /url: "#top"
+        - img "Минпромторг" [ref=e5]
+      - navigation "Primary" [ref=e6]:
+        - link "Калькулятор" [ref=e7] [cursor=pointer]:
+          - /url: "#calculator"
+        - link "Статус в реестре" [ref=e8] [cursor=pointer]:
+          - /url: "#benefits"
+        - link "Этапы" [ref=e9] [cursor=pointer]:
+          - /url: "#process"
+        - link "Отзывы" [ref=e10] [cursor=pointer]:
+          - /url: "#reviews"
+      - generic [ref=e11]:
+        - link "Консультация" [ref=e12] [cursor=pointer]:
+          - /url: "#cta"
+        - link "Калькулятор" [ref=e13] [cursor=pointer]:
+          - /url: "#calculator"
+  - main [ref=e14]:
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - heading "Внесение продукции в реестр Минпромторга." [level=1] [ref=e23]
+        - paragraph [ref=e24]: Берем на себя проверку документов, подготовку пакета и сопровождение подачи, чтобы вы не теряли время на исправления и повторные возвраты.
+        - generic [ref=e25]:
+          - link "Консультация" [ref=e26] [cursor=pointer]:
+            - /url: "#cta"
+          - link "Калькулятор" [ref=e27] [cursor=pointer]:
+            - /url: "#calculator"
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - paragraph [ref=e36]: Статус заявки
+            - paragraph [ref=e37]: Одобрено
+          - img [ref=e39]
+        - paragraph [ref=e42]: Заявка на внесение продукции
+    - generic [ref=e45]:
+      - generic [ref=e46]:
+        - heading "Сравните самостоятельную подачу и работу под ключ." [level=2] [ref=e47]
+        - paragraph [ref=e48]: Показываем ориентировочную разницу в затратах времени и бюджета. Точные цифры зависят от категории продукции и состава документов.
+      - generic [ref=e49]:
+        - generic [ref=e50]:
+          - generic [ref=e51]:
+            - paragraph [ref=e52]: Сценарий
+            - paragraph [ref=e53]: Подстройте параметры под вашу задачу
+          - generic [ref=e54]:
+            - generic [ref=e55]:
+              - generic [ref=e56]:
+                - generic [ref=e57]: Количество позиций
+                - status "Количество позиций 4" [ref=e58]: "4"
+              - slider [ref=e59]: "4"
+            - generic [ref=e60]:
+              - generic [ref=e61]:
+                - generic [ref=e62]: Час вашей команды, ₽
+                - status "Час вашей команды, ₽ 2500" [ref=e63]: "2500"
+              - slider [ref=e64]: "2500"
+            - generic [ref=e65]:
+              - button "Простая" [ref=e66]
+              - button "Стандартная" [ref=e67]
+              - button "Сложная" [ref=e68]
+          - generic [ref=e69]:
+            - paragraph [ref=e70]: Что учитывает модель
+            - list [ref=e71]:
+              - listitem [ref=e72]: • Внутренние часы на подготовку, согласование и исправления.
+              - listitem [ref=e73]: • Резерв на ошибки и повторные итерации при самостоятельной подаче.
+              - listitem [ref=e74]: • Более короткий путь при работе под ключ за счет готового процесса.
+        - generic [ref=e75]:
+          - generic [ref=e76]:
+            - generic [ref=e77]:
+              - paragraph [ref=e78]: Результат
+              - paragraph [ref=e79]: Сколько вы тратите в двух сценариях
+            - generic [ref=e80]: Стандартная
+          - generic [ref=e81]:
+            - generic [ref=e82]:
+              - paragraph [ref=e83]: Если делать самим
+              - paragraph [ref=e84]: 153 864 ₽
+              - paragraph [ref=e85]: Включая риск на исправления и дополнительные итерации.
+            - generic [ref=e86]:
+              - paragraph [ref=e87]: Если делаем мы
+              - paragraph [ref=e88]: 95 990 ₽
+              - paragraph [ref=e89]: Фиксируем логику, берем на себя координацию и уменьшаем число возвратов.
+          - generic [ref=e90]:
+            - generic [ref=e91]:
+              - paragraph [ref=e92]: Экономия бюджета
+              - paragraph [ref=e93]: 57 874 ₽
+            - generic [ref=e94]:
+              - paragraph [ref=e95]: Экономия времени
+              - paragraph [ref=e96]: 29 ч
+            - generic [ref=e97]:
+              - paragraph [ref=e98]: Риск резерва
+              - paragraph [ref=e99]: 18%
+          - generic [ref=e100]:
+            - generic [ref=e102]:
+              - paragraph [ref=e103]: Самостоятельно
+              - paragraph [ref=e104]: Много внутренних часов и резерв на исправления
+            - generic [ref=e108]:
+              - paragraph [ref=e109]: Под ключ
+              - paragraph [ref=e110]: Меньше ручной работы и меньше возвратов
+    - generic [ref=e113]:
+      - heading "Статус помогает не только пройти формальность, но и усилить коммерческую позицию." [level=2] [ref=e115]
+      - generic [ref=e116]:
+        - generic [ref=e117]:
+          - paragraph [ref=e118]: "01"
+          - heading "Доступ к закупкам и тендерам" [level=3] [ref=e119]
+          - paragraph [ref=e120]: Статус подтверждает соответствие требованиям и упрощает участие в процедурах, где нужен официальный реестровый след.
+        - generic [ref=e121]:
+          - paragraph [ref=e122]: "02"
+          - heading "Подтверждение российского происхождения" [level=3] [ref=e123]
+          - paragraph [ref=e124]: Появляется понятный аргумент для заказчиков, дистрибьюторов и партнеров, которым важно происхождение продукции.
+        - generic [ref=e125]:
+          - paragraph [ref=e126]: "03"
+          - heading "Снижение риска отказа" [level=3] [ref=e127]
+          - paragraph [ref=e128]: Чек-лист документов и предварительная проверка помогают не тратить время на возвраты и повторные круги согласований.
+        - generic [ref=e129]:
+          - paragraph [ref=e130]: "04"
+          - heading "Сильнее переговорная позиция" [level=3] [ref=e131]
+          - paragraph [ref=e132]: Официальный статус упрощает работу с B2B-клиентами, закупщиками и отраслевыми площадками.
+    - generic [ref=e133]:
+      - heading "Четыре шага, чтобы пройти путь без хаоса и догадок." [level=2] [ref=e135]
+      - generic [ref=e136]:
+        - generic [ref=e137]:
+          - generic [ref=e138]: "01"
+          - paragraph [ref=e139]: Этап 1
+          - heading "Проверяем исходные данные" [level=3] [ref=e140]
+          - paragraph [ref=e141]: Смотрим продукцию, состав документов и ключевые риски, чтобы понять, куда двигаться и что нужно исправить сразу.
+        - generic [ref=e142]:
+          - generic [ref=e143]: "02"
+          - paragraph [ref=e144]: Этап 2
+          - heading "Собираем и приводим в порядок пакет" [level=3] [ref=e145]
+          - paragraph [ref=e146]: Формируем список документов, проверяем формулировки и устраняем несоответствия до подачи.
+        - generic [ref=e147]:
+          - generic [ref=e148]: "03"
+          - paragraph [ref=e149]: Этап 3
+          - heading "Сопровождаем подачу" [level=3] [ref=e150]
+          - paragraph [ref=e151]: Берем на себя логику подачи, ответы на замечания и контроль статуса, чтобы процесс не зависал на мелочах.
+        - generic [ref=e152]:
+          - generic [ref=e153]: "04"
+          - paragraph [ref=e154]: Этап 4
+          - heading "Передаем статус и рекомендации" [level=3] [ref=e155]
+          - paragraph [ref=e156]: После получения статуса даем понятную инструкцию по дальнейшему использованию и последующим изменениям.
+    - generic [ref=e157]:
+      - heading "Потому что мы делаем процесс понятным, а не просто формально «оформляем заявку»." [level=2] [ref=e159]
+      - generic [ref=e160]:
+        - generic [ref=e161]:
+          - heading "Говорим честно про ограничения" [level=3] [ref=e162]
+          - paragraph [ref=e163]: Сразу объясняем, какие документы нужны, где есть слабые места и что может повлиять на результат.
+        - generic [ref=e164]:
+          - heading "Не перегружаем лишними шагами" [level=3] [ref=e165]
+          - paragraph [ref=e166]: Строим маршрут так, чтобы вы не тратили время на лишние согласования и переписку.
+        - generic [ref=e167]:
+          - heading "Фокус на повторяемом процессе" [level=3] [ref=e168]
+          - paragraph [ref=e169]: Используем единый чек-лист и понятные шаблоны, чтобы масштабировать работу на будущие категории продукции.
+        - generic [ref=e170]:
+          - heading "Сопровождение до финального результата" [level=3] [ref=e171]
+          - paragraph [ref=e172]: Не оставляем клиента с набором файлов и общими советами после первичной проверки.
+    - generic [ref=e173]:
+      - heading "Нас выбирают, когда нужен спокойный путь без лишних возвратов и пауз." [level=2] [ref=e175]
+      - generic [ref=e176]:
+        - generic [ref=e177]:
+          - generic [ref=e178]:
+            - generic [ref=e179]: А
+            - generic [ref=e180]:
+              - paragraph [ref=e181]: Алексей К.
+              - paragraph [ref=e182]: Производитель промышленного оборудования
+          - paragraph [ref=e183]: “Мы быстро увидели, чего не хватало в пакете, и избежали повторной подачи. Особенно помогло, что все шаги объясняли простым языком.”
+        - generic [ref=e184]:
+          - generic [ref=e185]:
+            - generic [ref=e186]: М
+            - generic [ref=e187]:
+              - paragraph [ref=e188]: Марина С.
+              - paragraph [ref=e189]: Руководитель отдела закупок
+          - paragraph [ref=e190]: “Понравилось, что сначала показали риски и сроки, а потом уже предложили план. Это сэкономило нам много внутренних согласований.”
+        - generic [ref=e191]:
+          - generic [ref=e192]:
+            - generic [ref=e193]: И
+            - generic [ref=e194]:
+              - paragraph [ref=e195]: Игорь В.
+              - paragraph [ref=e196]: Директор по развитию
+          - paragraph [ref=e197]: “После работы с ними у нас остался не только статус, но и понятная схема для следующих заявок. Это удобно для масштабирования.”
+    - generic [ref=e201]:
+      - generic [ref=e202]:
+        - heading "Хотите понять, готовы ли документы к подаче?" [level=2] [ref=e203]
+        - paragraph [ref=e204]: Оставьте заявку на консультацию, и мы подскажем, какие бумаги проверить в первую очередь, где могут быть слабые места и сколько может стоить сопровождение.
+        - generic [ref=e205]:
+          - link "Открыть калькулятор" [ref=e206] [cursor=pointer]:
+            - /url: "#calculator"
+          - link "Консультация" [ref=e207] [cursor=pointer]:
+            - /url: "#top"
+      - generic [ref=e208]:
+        - generic [ref=e209]:
+          - paragraph [ref=e210]: Что получаете
+          - list [ref=e211]:
+            - listitem [ref=e212]: • Список документов на старте.
+            - listitem [ref=e213]: • Оценку рисков и сроков.
+            - listitem [ref=e214]: • Понимание следующего шага.
+        - generic [ref=e215]:
+          - paragraph [ref=e216]: Формат
+          - paragraph [ref=e217]: Консультация, аудит и сопровождение
+          - paragraph [ref=e218]: Упакуем процесс так, чтобы вы точно понимали, за что платите и что происходит на каждом этапе.
+  - contentinfo [ref=e219]:
+    - generic [ref=e220]:
+      - generic [ref=e221]:
+        - generic [ref=e222]:
+          - paragraph [ref=e223]: Minpromtorg
+          - paragraph [ref=e224]: Внесение в реестр без лишней бюрократии и с понятным маршрутом.
+        - generic [ref=e225]:
+          - link "Калькулятор" [ref=e226] [cursor=pointer]:
+            - /url: "#calculator"
+          - link "Статус в реестре" [ref=e227] [cursor=pointer]:
+            - /url: "#benefits"
+          - link "Этапы" [ref=e228] [cursor=pointer]:
+            - /url: "#process"
+          - link "Отзывы" [ref=e229] [cursor=pointer]:
+            - /url: "#reviews"
+      - generic [ref=e230]:
+        - paragraph [ref=e231]: © 2026 Minpromtorg. Landing page concept.
+        - paragraph [ref=e232]: Консультация, калькулятор и сопровождение под ключ.
+  - generic [ref=e235]:
+    - button "Menu" [ref=e236]:
+      - img [ref=e238]
+      - generic: Menu
+    - button "Inspect" [ref=e242]:
+      - img [ref=e244]
+      - generic: Inspect
+    - button "Audit" [ref=e246]:
+      - img [ref=e248]
+      - generic: Audit
+    - button "Settings" [ref=e251]:
+      - img [ref=e253]
+      - generic: Settings

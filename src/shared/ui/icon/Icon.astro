@@ -1,0 +1,32 @@
+---
+/*
+File purpose: render Coolicons SVG markup inside Astro templates.
+Why this exists: the app needs a framework-agnostic icon primitive so the design can use the same icon set across buttons, cards, and trust blocks without importing Solid components directly.
+What it does: turns a typed Coolicons name into an inline SVG with predictable sizing and currentColor styling.
+Connected to: `src/shared/lib/coolicons.ts`, `src/shared/ui/button/Button.astro`, and the landing widgets that need small visual markers.
+*/
+
+import { cooliconMarkup, type CoolIconName } from "@/shared/lib/coolicons";
+
+interface Props {
+  name: CoolIconName;
+  class?: string;
+  size?: number | string;
+}
+
+const { name, class: className, size = 20 } = Astro.props as Props;
+const markup = cooliconMarkup[name];
+---
+
+<svg
+  aria-hidden="true"
+  focusable="false"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  width={size}
+  height={size}
+  fill="none"
+  stroke="currentColor"
+  class:list={["shrink-0", className]}
+  set:html={markup}
+></svg>

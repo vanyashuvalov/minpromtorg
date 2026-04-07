@@ -1,0 +1,33 @@
+---
+/*
+File purpose: standardize card surfaces across the landing page.
+Why this exists: the page uses several boxed content patterns, and keeping them consistent makes the UI feel intentional instead of assembled from random fragments.
+What it does: wraps slotted content in a reusable rounded shell with optional tone and padding variants.
+Connected to: all widgets that need a shared surface treatment, especially hero, calculator, reasons, and testimonials.
+*/
+
+interface Props {
+  tone?: "light" | "dark" | "accent";
+  class?: string;
+  padding?: "sm" | "md" | "lg";
+}
+
+const { tone = "light", padding = "md", class: className } = Astro.props as Props;
+
+const toneClasses = {
+  light: "glass-panel text-[color:var(--text)]",
+  dark: "glass-panel-dark text-white",
+  accent:
+    "bg-[linear-gradient(135deg,rgba(28,79,215,0.12),rgba(233,184,115,0.18))] text-[color:var(--text)] border border-white/60 shadow-[0_24px_70px_rgba(28,79,215,0.12)]",
+} as const;
+
+const paddingClasses = {
+  sm: "p-4",
+  md: "p-6",
+  lg: "p-8",
+} as const;
+---
+
+<div class:list={["rounded-[var(--radius-xl)]", toneClasses[tone], paddingClasses[padding], className]}>
+  <slot />
+</div>

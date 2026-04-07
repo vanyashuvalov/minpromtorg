@@ -1,0 +1,10 @@
+<!--
+  Favicon for the Minpromtorg landing page.
+  This file exists to give the new project a simple branded tab icon before the full visual system is expanded.
+  It is connected to the base layout and future branding assets.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Минпромторг">
+  <rect width="64" height="64" rx="18" fill="#101828" />
+  <path d="M17 43V21h8.5l6.5 12.3L38.5 21H47v22h-6V31.2L31.5 43h-1L23 31.2V43h-6Z" fill="#F8FAFC" />
+</svg>
+
