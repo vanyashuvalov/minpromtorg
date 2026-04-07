@@ -37,6 +37,24 @@ Connected to: `src/layouts/BaseLayout.astro`, all widgets, and every reusable UI
     scroll-behavior: smooth;
   }
 
+  /*
+   * Hide the browser scrollbars while keeping native scrolling intact.
+   * This is applied at the global page level so the landing page keeps its clean visual surface without changing scroll behavior.
+   * The rule is connected to the root document scroll used by the layout and all page sections.
+   */
+  html,
+  body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
   body {
     min-height: 100vh;
     color: var(--text);
