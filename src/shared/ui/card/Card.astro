@@ -26,15 +26,11 @@ const paddingClasses = {
   md: "p-6",
   lg: "p-8",
 } as const;
-
-const interactionClasses =
-  "transform-gpu motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_32px_96px_rgba(15,23,42,0.16)]";
 ---
 
 <div
   class:list={[
-    "rounded-[var(--radius-xl)]",
-    interactionClasses,
+    "card-shell rounded-[var(--radius-xl)]",
     toneClasses[tone],
     paddingClasses[padding],
     className,
@@ -42,3 +38,28 @@ const interactionClasses =
 >
   <slot />
 </div>
+
+<style>
+  .card-shell {
+    transform: translateZ(0);
+    will-change: transform, box-shadow, border-color;
+    transition-property: transform, box-shadow, border-color;
+    transition-duration: 520ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card-shell:hover {
+    transform: translate3d(0, -4px, 0);
+    box-shadow: 0 32px 96px rgba(15, 23, 42, 0.16);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-shell {
+      transition: none;
+    }
+
+    .card-shell:hover {
+      transform: none;
+    }
+  }
+</style>
