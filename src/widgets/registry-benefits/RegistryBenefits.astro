@@ -32,7 +32,7 @@ const benefitIcons: CoolIconName[] = ["building-04", "file-document", "shield-ch
       <!-- Right column uses a 2x2 grid so each benefit reads as a compact business card. -->
       <div class="grid gap-4 sm:grid-cols-2">
         {site.benefits.items.map((item, index) => (
-          <Card class="h-full p-6">
+          <Card class="h-full min-h-[280px] p-6 sm:min-h-[300px] lg:min-h-[320px]">
             <div class="flex h-full flex-col">
               <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[color:var(--brand-soft)] text-[color:var(--brand)]">
                 <Icon name={benefitIcons[index]} size={20} />
