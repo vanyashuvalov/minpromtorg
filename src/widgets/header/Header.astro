@@ -30,15 +30,15 @@ import Button from "@/shared/ui/button/Button.astro";
 
       <div class="flex items-center gap-3">
         <Button
-          href="#cta"
+          href={site.actions.consultation.href}
           variant="secondary"
-          class="hidden sm:inline-flex"
+          class="hidden sm:inline-flex hover:border-[rgba(183,111,42,0.5)] hover:text-[#b96a27] hover:shadow-[0_10px_24px_rgba(183,111,42,0.12)]"
           leadingIcon="chat-conversation"
           data-feedback-open
           aria-haspopup="dialog"
           aria-controls="feedback-modal"
         >
-          Консультация
+          {site.actions.consultation.label}
         </Button>
       </div>
     </div>

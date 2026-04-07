@@ -34,19 +34,19 @@ import documentFolders from "../../../document-folders.png";
             {site.cta.lead}
           </p>
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button href="#calculator" variant="ghost" leadingIcon="trending-down">
-              Открыть калькулятор
+            <Button href={site.actions.calculator.href} variant="ghost" leadingIcon="trending-down">
+              {site.actions.calculator.label}
             </Button>
             <Button
-              href="#top"
+              href={site.actions.consultation.href}
               variant="secondary"
-              class="bg-white text-[color:var(--text)]"
+              class="bg-white text-[color:var(--text)] hover:border-[rgba(183,111,42,0.5)] hover:text-[#b96a27] hover:shadow-[0_10px_24px_rgba(183,111,42,0.12)]"
               leadingIcon="chat-conversation"
               data-feedback-open
               aria-haspopup="dialog"
               aria-controls="feedback-modal"
             >
-              Консультация
+              {site.actions.consultation.label}
             </Button>
           </div>
         </div>

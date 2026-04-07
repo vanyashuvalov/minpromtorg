@@ -17,13 +17,17 @@ import Section from "@/shared/ui/section/Section.astro";
 const marqueeGroups = [site.testimonials.items, site.testimonials.items] as const;
 ---
 
-<Section id="reviews" title={site.testimonials.title}>
+<Section
+  id="reviews"
+  title={site.testimonials.title}
+  class="bg-[linear-gradient(180deg,rgba(246,248,251,0.98),rgba(239,243,248,0.96))]"
+>
   <div class="testimonials-marquee">
     <div class="testimonials-track flex w-max gap-4 py-2">
       {marqueeGroups.map((group, groupIndex) => (
         <div class="flex gap-4" aria-hidden={groupIndex === 1 ? "true" : undefined}>
           {group.map((item) => (
-            <Card class="relative h-full min-h-[220px] shrink-0 p-6" style="width: min(340px, calc(100vw - 2rem));">
+            <Card class="relative h-full min-h-[220px] shrink-0 p-6" style="width: min(384px, calc(100vw - 2rem));">
               <div class="flex items-start justify-between gap-4">
                 <div class="flex items-center gap-4">
                   <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,rgba(28,79,215,0.16),rgba(233,184,115,0.16))] text-lg font-bold text-[color:var(--brand)]">
