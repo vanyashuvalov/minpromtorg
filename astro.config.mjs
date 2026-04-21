@@ -9,6 +9,10 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
+  // Disable the Astro Dev Toolbar for this project so local development stays visually clean and focused on the landing page itself.
+  devToolbar: {
+    enabled: false,
+  },
   vite: {
     plugins: [tailwindcss()],
     resolve: {
