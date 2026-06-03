@@ -167,20 +167,20 @@ const savingsIcon = "trending-up";
         <div class="relative">
           <div class="flex items-center gap-2 text-[color:var(--accent)]">
             <Icon name={savingsIcon} size={18} />
-            <p class="text-xs font-semibold uppercase tracking-[0.24em]">Экономия</p>
+            <p class="text-xs font-semibold uppercase tracking-[0.24em]">{calculatorContent.savings.title}</p>
           </div>
 
           <div class="mt-5 grid gap-3 sm:grid-cols-3">
             <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
-              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/52">Срок</p>
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/52">{calculatorContent.savings.fasterLabel}</p>
               <p data-result-savedMonths class="mt-2 text-2xl font-semibold text-white">0 мес.</p>
             </div>
             <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
-              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/52">Часы</p>
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/52">{calculatorContent.savings.hoursLabel}</p>
               <p data-result-savedHours class="mt-2 text-2xl font-semibold text-white">0 ч</p>
             </div>
             <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
-              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/52">Бюджет</p>
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/52">{calculatorContent.savings.valueLabel}</p>
               <p data-result-savedCost class="mt-2 text-2xl font-semibold text-white">0 ₽</p>
             </div>
           </div>
@@ -196,6 +196,17 @@ const savingsIcon = "trending-up";
               aria-controls="feedback-modal"
             >
               {calculatorContent.cta.label}
+            </Button>
+            <Button
+              as="button"
+              type="button"
+              variant="secondary"
+              leadingIcon="file-document"
+              data-feedback-open
+              aria-haspopup="dialog"
+              aria-controls="feedback-modal"
+            >
+              {calculatorContent.cta.secondaryLabel}
             </Button>
           </div>
         </div>
