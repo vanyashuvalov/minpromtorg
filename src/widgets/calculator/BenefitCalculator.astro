@@ -1,140 +1,220 @@
 ---
 /*
-File purpose: render the landing page calculator as a centered, slider-driven comparison block.
-Why this exists: the page needs a clean benefit widget that shows the cost difference without extra explanatory noise.
-What it does: lets the visitor adjust three variables with sliders, recalculates the comparison live, and presents a short result summary with one clear next action.
-Connected to: `src/shared/lib/benefit-calculator.ts`, `src/shared/ui/card/Card.astro`, `src/shared/ui/button/Button.astro`, and the feedback modal opened from the CTA below.
+File purpose: present the landing-page benefit calculator as a business comparison block.
+Why this exists: the page needs a single, reusable widget that shows the difference between self-managed work and full сопровождение in time, effort, and money.
+What it does: renders three sliders, computes a nonlinear comparison model, and displays the result in a stronger split-card layout.
+Connected to: `src/shared/config/calculator.ts`, `src/shared/lib/benefit-calculator.ts`, `src/shared/ui/button/Button.astro`, `src/shared/ui/card/Card.astro`, `src/shared/ui/icon/Icon.astro`, and `src/shared/ui/section/Section.astro`.
 */
 
+import { calculatorContent } from "@/shared/config/calculator";
 import Button from "@/shared/ui/button/Button.astro";
 import Card from "@/shared/ui/card/Card.astro";
 import Icon from "@/shared/ui/icon/Icon.astro";
-import type { CoolIconName } from "@/shared/lib/coolicons";
-
-const sliderDefaults = {
-  positions: 4,
-  hourlyRate: 2500,
-  employees: 3,
-} as const;
-
-const savingsIcon: CoolIconName = "trending-up";
+import Section from "@/shared/ui/section/Section.astro";
+const savingsIcon = "trending-up";
 ---
 
-<section id="calculator" class="scroll-mt-32 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-  <div class="mx-auto w-full max-w-[720px]">
-    <div class="mx-auto max-w-2xl text-center">
-      <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--text-soft)]">
-        Калькулятор выгоды
-      </p>
-      <h2 class="mt-4 text-3xl leading-[0.96] sm:text-4xl lg:text-5xl">
-        Посчитайте экономию за пару секунд
-      </h2>
-      <p class="mt-4 text-base leading-7 text-[color:var(--text-muted)] sm:text-lg">
-        Передвиньте три слайдера и сразу увидите разницу между самостоятельной подготовкой и работой под ключ
-      </p>
-    </div>
+<Section id="calculator" title={calculatorContent.title} lead={calculatorContent.lead}>
+  <div class="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+    <Card padding="lg" class="relative overflow-hidden">
+      <!-- Decorative panel background: the calculator needs a calmer surface so the slider inputs and labels stay readable against the section background. -->
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(28,79,215,0.08),transparent_36%),radial-gradient(circle_at_bottom_left,rgba(233,184,115,0.12),transparent_30%)]"></div>
 
-    <Card class="mt-10 overflow-hidden p-6 sm:p-8 lg:p-10">
-      <div class="grid gap-0">
-        <label class="py-5 first:pt-0 border-t border-[color:var(--border)] first:border-t-0">
-          <div class="flex items-center justify-between gap-4">
-            <span class="text-sm font-semibold text-[color:var(--text-muted)]">Количество позиций</span>
-            <span data-field="positionsValue" class="text-sm font-semibold text-[color:var(--text)]">4</span>
-          </div>
-          <input
-            data-field="positions"
-            type="range"
-            min="1"
-            max="24"
-            step="1"
-            value={sliderDefaults.positions}
-            class="calculator-range mt-5 w-full"
-          />
-        </label>
+      <div class="relative">
+        <p class="mt-2 text-2xl leading-tight text-[color:var(--text)]">
+          Ваши параметры
+        </p>
 
-        <label class="py-5 border-t border-[color:var(--border)]">
-          <div class="flex items-center justify-between gap-4">
-            <span class="text-sm font-semibold text-[color:var(--text-muted)]">Стоимость часа сотрудника</span>
-            <span data-field="hourlyRateValue" class="text-sm font-semibold text-[color:var(--text)]">2 500 ₽</span>
-          </div>
-          <input
-            data-field="hourlyRate"
-            type="range"
-            min="800"
-            max="20000"
-            step="100"
-            value={sliderDefaults.hourlyRate}
-            class="calculator-range mt-5 w-full"
-          />
-        </label>
-
-        <label class="py-5 border-t border-[color:var(--border)]">
-          <div class="flex items-center justify-between gap-4">
-            <span class="text-sm font-semibold text-[color:var(--text-muted)]">Количество сотрудников</span>
-            <span data-field="employeesValue" class="text-sm font-semibold text-[color:var(--text)]">3</span>
-          </div>
-          <input
-            data-field="employees"
-            type="range"
-            min="1"
-            max="50"
-            step="1"
-            value={sliderDefaults.employees}
-            class="calculator-range mt-5 w-full"
-          />
-        </label>
-      </div>
-
-      <div class="mt-8 grid gap-4 lg:grid-cols-2">
-        <Card class="p-5 sm:p-6">
-          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">Сами</p>
-          <p data-field="selfCost" class="mt-3 text-3xl font-semibold text-[color:var(--text)]">0 ₽</p>
-        </Card>
-
-        <Card class="p-5 sm:p-6 bg-[linear-gradient(135deg,rgba(28,79,215,0.08),rgba(255,255,255,0.96))]">
-          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">С нами</p>
-          <p data-field="agencyCost" class="mt-3 text-3xl font-semibold text-[color:var(--text)]">0 ₽</p>
-        </Card>
-      </div>
-
-      <Card class="mt-4 border border-[color:var(--success)] bg-[linear-gradient(135deg,rgba(30,155,93,0.08),rgba(255,255,255,0.98))] p-5 sm:p-6">
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <div class="flex items-center gap-2 text-[color:var(--success)]">
-              <Icon name={savingsIcon} size={18} />
-              <p class="text-xs font-semibold uppercase tracking-[0.18em]">Экономия</p>
+        <!-- Slider stack: the left column captures the user inputs that drive the business model and keeps them visually grouped for fast tuning. -->
+        <div class="mt-5 grid gap-5">
+          <label class="block">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <span class="block text-sm font-semibold text-[color:var(--text-muted)]">
+                  {calculatorContent.sliders.positions.label}
+                </span>
+              </div>
+              <span data-field="positionsValue" class="text-sm font-semibold text-[color:var(--text)]">3</span>
             </div>
-            <p data-field="savings" class="mt-3 text-4xl font-semibold text-[color:var(--text)]">0 ₽</p>
+            <input
+              data-field="positions"
+              type="range"
+              min="1"
+              max="5"
+              step="1"
+              value={calculatorContent.defaults.positions}
+              class="calculator-range mt-5 w-full"
+            />
+          </label>
+
+          <label class="block">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <span class="block text-sm font-semibold text-[color:var(--text-muted)]">
+                  {calculatorContent.sliders.hourlyRate.label}
+                </span>
+              </div>
+              <span data-field="hourlyRateValue" class="text-sm font-semibold text-[color:var(--text)]">1 500 ₽</span>
+            </div>
+            <input
+              data-field="hourlyRate"
+              type="range"
+              min="500"
+              max="3000"
+              step="100"
+              value={calculatorContent.defaults.hourlyRate}
+              class="calculator-range mt-5 w-full"
+            />
+          </label>
+
+          <label class="block">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <span class="block text-sm font-semibold text-[color:var(--text-muted)]">
+                  {calculatorContent.sliders.employees.label}
+                </span>
+              </div>
+              <span data-field="employeesValue" class="text-sm font-semibold text-[color:var(--text)]">3</span>
+            </div>
+            <input
+              data-field="employees"
+              type="range"
+              min="1"
+              max="5"
+              step="1"
+              value={calculatorContent.defaults.employees}
+              class="calculator-range mt-5 w-full"
+            />
+          </label>
+        </div>
+
+        <!-- Supporting context: this helper block explains the model so the visitor understands why the result grows faster than the sliders themselves. -->
+        <div class="mt-8">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--text-soft)]">
+            Что учитывает модель
+          </p>
+          <div class="mt-4 space-y-3">
+            {calculatorContent.benefits.items.map((item) => (
+              <div class="flex items-start gap-3">
+                <span class="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[color:var(--brand-soft)] text-[color:var(--brand)]">
+                  <Icon name="check-big" size={12} />
+                </span>
+                <span class="text-sm leading-6 text-[color:var(--text-muted)]">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Card>
+
+    <div class="grid gap-4">
+      <!-- Scenario cards: the right column translates the calculation into an immediate commercial comparison that is easy to scan on mobile and desktop. -->
+      <div class="grid gap-4 sm:grid-cols-2">
+        <Card class="relative overflow-hidden p-6 sm:p-7">
+          <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(245,248,252,0.98))]"></div>
+          <div class="relative">
+            <p class="mt-2 text-2xl leading-tight text-[color:var(--text)]">
+              {calculatorContent.summary.self.title}
+            </p>
+            <p data-result-selfCost class="mt-4 text-3xl leading-none text-[color:var(--text)]">0 ₽</p>
+
+            <div class="mt-5 grid gap-3">
+              <div class="flex items-center justify-between rounded-2xl border border-[color:var(--border)] bg-white/80 px-4 py-3">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">Срок</p>
+                <p data-result-selfMonths class="text-xl font-semibold text-[color:var(--text)]">0 мес.</p>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl border border-[color:var(--border)] bg-white/80 px-4 py-3">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">Часы</p>
+                <p data-result-selfHours class="text-xl font-semibold text-[color:var(--text)]">0 ч</p>
+              </div>
+            </div>
+
+            <p class="mt-4 text-sm leading-6 text-[color:var(--text-muted)]">
+              {calculatorContent.summary.self.description}
+            </p>
+          </div>
+        </Card>
+
+        <Card tone="accent" class="relative overflow-hidden p-6 sm:p-7">
+          <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(28,79,215,0.08),rgba(233,184,115,0.14))]"></div>
+          <div class="relative">
+            <p class="mt-2 text-2xl leading-tight text-[color:var(--text)]">
+              {calculatorContent.summary.agency.title}
+            </p>
+            <p data-result-agencyCost class="mt-4 text-3xl leading-none text-[color:var(--text)]">0 ₽</p>
+
+            <div class="mt-5 grid gap-3">
+              <div class="flex items-center justify-between rounded-2xl border border-white/70 bg-white/80 px-4 py-3">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">Срок</p>
+                <p data-result-agencyMonths class="text-xl font-semibold text-[color:var(--text)]">0 мес.</p>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl border border-white/70 bg-white/80 px-4 py-3">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">Часы</p>
+                <p data-result-agencyHours class="text-xl font-semibold text-[color:var(--text)]">0 ч</p>
+              </div>
+            </div>
+
+            <p class="mt-4 text-sm leading-6 text-[color:var(--text-muted)]">
+              {calculatorContent.summary.agency.description}
+            </p>
+          </div>
+        </Card>
+      </div>
+
+      <!-- Savings card: this closes the loop with a single business outcome, which is faster, lighter, and cheaper. -->
+      <Card tone="dark" class="relative overflow-hidden p-6 sm:p-7">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(233,184,115,0.14),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(28,79,215,0.22),transparent_30%)]"></div>
+        <div class="relative">
+          <div class="flex items-center gap-2 text-[color:var(--accent)]">
+            <Icon name={savingsIcon} size={18} />
+            <p class="text-xs font-semibold uppercase tracking-[0.24em]">Экономия</p>
+          </div>
+
+          <div class="mt-5 grid gap-3 sm:grid-cols-3">
+            <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/52">Срок</p>
+              <p data-result-savedMonths class="mt-2 text-2xl font-semibold text-white">0 мес.</p>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/52">Часы</p>
+              <p data-result-savedHours class="mt-2 text-2xl font-semibold text-white">0 ч</p>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/52">Бюджет</p>
+              <p data-result-savedCost class="mt-2 text-2xl font-semibold text-white">0 ₽</p>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Button
+              as="button"
+              type="button"
+              variant="primary"
+              leadingIcon="chat-conversation"
+              data-feedback-open
+              aria-haspopup="dialog"
+              aria-controls="feedback-modal"
+            >
+              {calculatorContent.cta.label}
+            </Button>
           </div>
         </div>
       </Card>
-
-      <div class="mt-8 flex justify-center">
-        <Button
-          as="button"
-          type="button"
-          variant="primary"
-          leadingIcon="file-document"
-          data-feedback-open
-          aria-haspopup="dialog"
-          aria-controls="feedback-modal"
-        >
-          Получить КП
-        </Button>
-      </div>
-    </Card>
+    </div>
   </div>
 
   <script>
     /*
-     * Keep the slider UI and the shared calculation model in sync.
-     * The widget is intentionally framework-free so it stays fast, predictable, and easy to integrate with the rest of the landing page.
+     * Keep the sliders and the comparison cards in sync.
+     * The widget stays framework-free so it remains fast, predictable, and easy to extend if the business assumptions change later.
      */
     import {
       calculateBenefitComparison,
       clampInput,
+      formatCompactRubles,
+      formatHours,
+      formatMonths,
       formatNumber,
-      formatRubles,
     } from "@/shared/lib/benefit-calculator";
 
     const root = document.querySelector<HTMLElement>("#calculator");
@@ -151,9 +231,15 @@ const savingsIcon: CoolIconName = "trending-up";
     const hourlyRateValue = root.querySelector<HTMLElement>('[data-field="hourlyRateValue"]');
     const employeesValue = root.querySelector<HTMLElement>('[data-field="employeesValue"]');
 
-    const selfCost = root.querySelector<HTMLElement>('[data-field="selfCost"]');
-    const agencyCost = root.querySelector<HTMLElement>('[data-field="agencyCost"]');
-    const savings = root.querySelector<HTMLElement>('[data-field="savings"]');
+    const selfCost = root.querySelector<HTMLElement>("[data-result-selfCost]");
+    const selfMonths = root.querySelector<HTMLElement>("[data-result-selfMonths]");
+    const selfHours = root.querySelector<HTMLElement>("[data-result-selfHours]");
+    const agencyCost = root.querySelector<HTMLElement>("[data-result-agencyCost]");
+    const agencyMonths = root.querySelector<HTMLElement>("[data-result-agencyMonths]");
+    const agencyHours = root.querySelector<HTMLElement>("[data-result-agencyHours]");
+    const savedMonths = root.querySelector<HTMLElement>("[data-result-savedMonths]");
+    const savedHours = root.querySelector<HTMLElement>("[data-result-savedHours]");
+    const savedCost = root.querySelector<HTMLElement>("[data-result-savedCost]");
 
     if (
       !positionsInput ||
@@ -163,38 +249,44 @@ const savingsIcon: CoolIconName = "trending-up";
       !hourlyRateValue ||
       !employeesValue ||
       !selfCost ||
+      !selfMonths ||
+      !selfHours ||
       !agencyCost ||
-      !savings
+      !agencyMonths ||
+      !agencyHours ||
+      !savedMonths ||
+      !savedHours ||
+      !savedCost
     ) {
       throw new Error("Calculator outputs were not found.");
     }
 
-    const state = {
-      positions: 4,
-      hourlyRate: 2500,
-      employees: 3,
-    };
-
     const rangeMeta = {
-      positions: { min: 1, max: 24 },
-      hourlyRate: { min: 800, max: 20000 },
-      employees: { min: 1, max: 50 },
+      positions: { min: 1, max: 5 },
+      hourlyRate: { min: 500, max: 3000 },
+      employees: { min: 1, max: 5 },
     } as const;
+
+    const state = {
+      positions: Number(positionsInput.value),
+      hourlyRate: Number(hourlyRateInput.value),
+      employees: Number(employeesInput.value),
+    };
 
     /*
      * Paint the slider track so the fill reflects the current value.
-     * This gives the controls a tactile, premium feel while keeping the markup simple.
+     * The visual fill gives the controls a premium feeling while keeping the markup simple and fully accessible.
      */
     const paintRange = (input: HTMLInputElement, min: number, max: number, value: number) => {
       const safeValue = clampInput(value, min, max);
       const percent = ((safeValue - min) / (max - min)) * 100;
 
-      input.style.background = `linear-gradient(90deg, rgba(28,79,215,0.16) 0%, rgba(28,79,215,0.16) ${percent}%, rgba(226,231,237,1) ${percent}%, rgba(226,231,237,1) 100%)`;
+      input.style.background = `linear-gradient(90deg, rgba(28,79,215,0.18) 0%, rgba(28,79,215,0.18) ${percent}%, rgba(226,231,237,1) ${percent}%, rgba(226,231,237,1) 100%)`;
     };
 
     /*
-     * Render the current state into the value badges and result cards.
-     * Keeping a single render path makes the widget easy to tune if the pricing assumptions change later.
+     * Render the latest numbers into the view.
+     * All business assumptions are isolated in the shared lib, so this function only translates the result into visible labels and cards.
      */
     const render = () => {
       const result = calculateBenefitComparison(state);
@@ -204,31 +296,45 @@ const savingsIcon: CoolIconName = "trending-up";
       employeesInput.value = String(state.employees);
 
       positionsValue.textContent = formatNumber(state.positions);
-      hourlyRateValue.textContent = formatRubles(state.hourlyRate);
+      hourlyRateValue.textContent = `${formatNumber(state.hourlyRate)} ₽`;
       employeesValue.textContent = formatNumber(state.employees);
 
-      selfCost.textContent = formatRubles(result.selfCost);
-      agencyCost.textContent = formatRubles(result.agencyCost);
-      savings.textContent = formatRubles(result.savings);
+      selfCost.textContent = formatCompactRubles(result.self.cost);
+      selfMonths.textContent = formatMonths(result.self.months);
+      selfHours.textContent = formatHours(result.self.hours);
+
+      agencyCost.textContent = formatCompactRubles(result.agency.cost);
+      agencyMonths.textContent = formatMonths(result.agency.months);
+      agencyHours.textContent = formatHours(result.agency.hours);
+
+      savedMonths.textContent = formatMonths(result.savings.months);
+      savedHours.textContent = formatHours(result.savings.hours);
+      savedCost.textContent = formatCompactRubles(result.savings.cost);
 
       paintRange(positionsInput, rangeMeta.positions.min, rangeMeta.positions.max, state.positions);
       paintRange(hourlyRateInput, rangeMeta.hourlyRate.min, rangeMeta.hourlyRate.max, state.hourlyRate);
       paintRange(employeesInput, rangeMeta.employees.min, rangeMeta.employees.max, state.employees);
     };
 
-    positionsInput.addEventListener("input", (event) => {
-      state.positions = clampInput(Number((event.target as HTMLInputElement).value), rangeMeta.positions.min, rangeMeta.positions.max);
+    /*
+     * Update the calculator state from a slider change and immediately re-render the comparison.
+     * This keeps the widget responsive while preventing any invalid state from leaking into the calculation.
+     */
+    const updateState = (key: keyof typeof state, value: number, min: number, max: number) => {
+      state[key] = clampInput(value, min, max);
       render();
+    };
+
+    positionsInput.addEventListener("input", (event) => {
+      updateState("positions", Number((event.target as HTMLInputElement).value), rangeMeta.positions.min, rangeMeta.positions.max);
     });
 
     hourlyRateInput.addEventListener("input", (event) => {
-      state.hourlyRate = clampInput(Number((event.target as HTMLInputElement).value), rangeMeta.hourlyRate.min, rangeMeta.hourlyRate.max);
-      render();
+      updateState("hourlyRate", Number((event.target as HTMLInputElement).value), rangeMeta.hourlyRate.min, rangeMeta.hourlyRate.max);
     });
 
     employeesInput.addEventListener("input", (event) => {
-      state.employees = clampInput(Number((event.target as HTMLInputElement).value), rangeMeta.employees.min, rangeMeta.employees.max);
-      render();
+      updateState("employees", Number((event.target as HTMLInputElement).value), rangeMeta.employees.min, rangeMeta.employees.max);
     });
 
     render();
@@ -285,4 +391,4 @@ const savingsIcon: CoolIconName = "trending-up";
       filter: brightness(0.92);
     }
   </style>
-</section>
+</Section>
