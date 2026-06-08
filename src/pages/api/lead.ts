@@ -49,7 +49,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   const env = getRuntimeEnv(locals);
   const resendApiKey = env.RESEND_API_KEY;
-  const from = env.LEAD_MAIL_FROM || "ЦЭР <noreply@cer.moscow>";
+  const from = env.LEAD_MAIL_FROM || "ЦЭР <onboarding@resend.dev>";
   const to = recipients[leadType];
   const subject = subjects[leadType];
   const text = [
@@ -78,6 +78,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     headers: {
       Authorization: `Bearer ${resendApiKey}`,
       "Content-Type": "application/json",
+      "User-Agent": "minpromtorg/1.0",
     },
     body: JSON.stringify({
       from,
