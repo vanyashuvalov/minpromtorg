@@ -192,6 +192,9 @@ const savingsIcon = "trending-up";
               variant="primary"
               leadingIcon="chat-conversation"
               data-feedback-open
+              data-calculator-lead
+              data-lead-type="quiz"
+              data-lead-source={calculatorContent.cta.label}
               aria-haspopup="dialog"
               aria-controls="feedback-modal"
             >
@@ -203,6 +206,9 @@ const savingsIcon = "trending-up";
               variant="secondary"
               leadingIcon="file-document"
               data-feedback-open
+              data-calculator-lead
+              data-lead-type="quiz"
+              data-lead-source={calculatorContent.cta.secondaryLabel}
               aria-haspopup="dialog"
               aria-controls="feedback-modal"
             >
@@ -251,6 +257,7 @@ const savingsIcon = "trending-up";
     const savedMonths = root.querySelector<HTMLElement>("[data-result-savedMonths]");
     const savedHours = root.querySelector<HTMLElement>("[data-result-savedHours]");
     const savedCost = root.querySelector<HTMLElement>("[data-result-savedCost]");
+    const leadButtons = root.querySelectorAll<HTMLElement>("[data-calculator-lead]");
 
     if (
       !positionsInput ||
@@ -321,6 +328,35 @@ const savingsIcon = "trending-up";
       savedMonths.textContent = formatMonths(result.savings.months);
       savedHours.textContent = formatHours(result.savings.hours);
       savedCost.textContent = formatCompactRubles(result.savings.cost);
+
+      const leadPayload = {
+        inputs: {
+          positions: state.positions,
+          hourlyRate: state.hourlyRate,
+          employees: state.employees,
+        },
+        result: {
+          self: {
+            cost: formatCompactRubles(result.self.cost),
+            months: formatMonths(result.self.months),
+            hours: formatHours(result.self.hours),
+          },
+          agency: {
+            cost: formatCompactRubles(result.agency.cost),
+            months: formatMonths(result.agency.months),
+            hours: formatHours(result.agency.hours),
+          },
+          savings: {
+            months: formatMonths(result.savings.months),
+            hours: formatHours(result.savings.hours),
+            cost: formatCompactRubles(result.savings.cost),
+          },
+        },
+      };
+
+      leadButtons.forEach((button) => {
+        button.dataset.leadPayload = JSON.stringify(leadPayload);
+      });
 
       paintRange(positionsInput, rangeMeta.positions.min, rangeMeta.positions.max, state.positions);
       paintRange(hourlyRateInput, rangeMeta.hourlyRate.min, rangeMeta.hourlyRate.max, state.hourlyRate);

@@ -45,6 +45,10 @@ import Card from "@/shared/ui/card/Card.astro";
       </p>
 
       <form data-feedback-form class="mt-8 grid gap-4">
+        <input name="leadType" type="hidden" value="consultation" />
+        <input name="source" type="hidden" value="Консультация" />
+        <input name="payload" type="hidden" value="" />
+
         <label class="block">
           <span class="mb-2 block text-sm font-semibold text-[color:var(--text-muted)]">{site.feedback.nameLabel}</span>
           <input
@@ -75,6 +79,9 @@ import Card from "@/shared/ui/card/Card.astro";
             {site.feedback.submitLabel}
           </Button>
         </div>
+        <p data-feedback-error class="hidden rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700">
+          Не удалось отправить заявку. Попробуйте ещё раз или свяжитесь с нами напрямую.
+        </p>
         <p class="text-sm leading-6 text-[color:var(--text-muted)]">
           {site.feedback.consentLead}
           <a href="/privacy" class="text-[color:var(--text)] underline decoration-[color:var(--border)] underline-offset-4 transition hover:decoration-[rgba(183,111,42,0.48)] hover:text-[#b96a27]">
@@ -110,6 +117,11 @@ import Card from "@/shared/ui/card/Card.astro";
   const form = modal.querySelector<HTMLFormElement>("[data-feedback-form]");
   const success = modal.querySelector<HTMLElement>("[data-feedback-success]");
   const firstInput = modal.querySelector<HTMLInputElement>('input[name="name"]');
+  const leadTypeInput = modal.querySelector<HTMLInputElement>('input[name="leadType"]');
+  const sourceInput = modal.querySelector<HTMLInputElement>('input[name="source"]');
+  const payloadInput = modal.querySelector<HTMLInputElement>('input[name="payload"]');
+  const submitButton = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const errorMessage = modal.querySelector<HTMLElement>("[data-feedback-error]");
 
   let savedScrollY = 0;
   let lastTrigger: HTMLElement | null = null;
@@ -159,6 +171,20 @@ import Card from "@/shared/ui/card/Card.astro";
    */
   const resetModal = () => {
     form?.reset();
+    if (leadTypeInput) {
+      leadTypeInput.value = "consultation";
+    }
+    if (sourceInput) {
+      sourceInput.value = "Консультация";
+    }
+    if (payloadInput) {
+      payloadInput.value = "";
+    }
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = "Отправить";
+    }
+    errorMessage?.classList.add("hidden");
     form?.classList.remove("hidden");
     success?.classList.add("hidden");
   };
@@ -170,6 +196,15 @@ import Card from "@/shared/ui/card/Card.astro";
   const openModal = (trigger: HTMLElement) => {
     lastTrigger = trigger;
     resetModal();
+    if (leadTypeInput) {
+      leadTypeInput.value = trigger.dataset.leadType || "consultation";
+    }
+    if (sourceInput) {
+      sourceInput.value = trigger.dataset.leadSource || trigger.textContent?.trim() || "Консультация";
+    }
+    if (payloadInput) {
+      payloadInput.value = trigger.dataset.leadPayload || "";
+    }
     modal.classList.remove("hidden");
     modal.setAttribute("aria-hidden", "false");
     lockScroll();
@@ -213,12 +248,60 @@ import Card from "@/shared/ui/card/Card.astro";
   });
 
   /*
-   * Keep the modal self-contained for now: the form validates input, then switches to a success state instead of navigating away.
-   * This makes the interaction useful today while leaving the backend integration point open for later.
+   * Send the lead to the site API, then switch to a success state only after the mail provider accepts it.
    */
-  form?.addEventListener("submit", (event) => {
+  form?.addEventListener("submit", async (event) => {
     event.preventDefault();
-    form.classList.add("hidden");
-    success?.classList.remove("hidden");
+    errorMessage?.classList.add("hidden");
+
+    if (!form.reportValidity()) {
+      return;
+    }
+
+    const formData = new FormData(form);
+    const payloadRaw = String(formData.get("payload") || "");
+    let payload: unknown = null;
+
+    if (payloadRaw) {
+      try {
+        payload = JSON.parse(payloadRaw);
+      } catch {
+        payload = payloadRaw;
+      }
+    }
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Отправляем...";
+    }
+
+    try {
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          phone: formData.get("phone"),
+          leadType: formData.get("leadType"),
+          source: formData.get("source"),
+          payload,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Lead request failed.");
+      }
+
+      form.classList.add("hidden");
+      success?.classList.remove("hidden");
+    } catch {
+      errorMessage?.classList.remove("hidden");
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = "Отправить";
+      }
+    }
   });
 </script>
