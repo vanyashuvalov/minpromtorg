@@ -22,6 +22,10 @@ const actions = {
 export const site = {
   brand: "ЦЭР |",
   brandTagline: "Центр экспертных решений",
+  contacts: {
+    infoEmail: "info@cer.moscow",
+    zaprosEmail: "zapros@cer.moscow",
+  },
   nav: [
     { label: "Калькулятор", href: "#calculator" },
     { label: "Что даёт статус", href: "#benefits" },
@@ -143,16 +147,17 @@ export const site = {
     title: "Нужна помощь с внесением продукции в реестр?",
     lead:
       "Оставьте заявку, и мы подскажем следующий шаг, оценим документы и предложим понятный план сопровождения.",
+    emailLead: "Если удобнее, напишите на почту",
   },
   feedback: {
     title: "Консультация",
     description:
-      "Оставьте имя и номер телефона, и мы свяжемся с вами, чтобы уточнить детали и следующий шаг.",
+      "Оставьте имя и почту, и мы свяжемся с вами, чтобы уточнить детали и следующий шаг.",
     closeLabel: "Закрыть форму",
     nameLabel: "Имя",
     namePlaceholder: "Ваше имя",
-    phoneLabel: "Номер телефона",
-    phonePlaceholder: "+7 (999) 123-45-67",
+    emailLabel: "Почта",
+    emailPlaceholder: "name@example.com",
     submitLabel: "Отправить",
     consentLead: "Нажимая на кнопку, вы соглашаетесь с",
     consentLinkLabel: "политикой конфиденциальности",

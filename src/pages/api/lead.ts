@@ -1,3 +1,4 @@
+import { site } from "@/shared/config/site";
 import type { APIRoute } from "astro";
 
 export const prerender = false;
@@ -5,8 +6,8 @@ export const prerender = false;
 type LeadType = "consultation" | "quiz";
 
 const recipients: Record<LeadType, string> = {
-  consultation: "info@cer.moscow",
-  quiz: "zapros@cer.moscow",
+  consultation: site.contacts.infoEmail,
+  quiz: site.contacts.zaprosEmail,
 };
 
 const subjects: Record<LeadType, string> = {
@@ -19,6 +20,8 @@ const getRuntimeEnv = (locals: unknown) => {
 };
 
 const asText = (value: unknown) => (typeof value === "string" ? value.trim() : "");
+
+const isEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
 const normalizeLeadType = (value: unknown): LeadType => {
   return value === "quiz" ? "quiz" : "consultation";
@@ -35,13 +38,13 @@ const formatPayload = (payload: unknown) => {
 export const POST: APIRoute = async ({ request, locals }) => {
   const body = await request.json().catch(() => null);
   const name = asText(body?.name);
-  const phone = asText(body?.phone);
+  const email = asText(body?.email);
   const leadType = normalizeLeadType(body?.leadType);
   const source = asText(body?.source) || (leadType === "quiz" ? "Квиз/калькулятор" : "Консультация");
   const payload = formatPayload(body?.payload);
 
-  if (!name || !phone) {
-    return new Response(JSON.stringify({ error: "Name and phone are required." }), {
+  if (!name || !email || !isEmail(email)) {
+    return new Response(JSON.stringify({ error: "Name and email are required." }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
     });
@@ -58,7 +61,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     `Тип заявки: ${leadType === "quiz" ? "Квиз/калькулятор" : "Консультация"}`,
     `Источник: ${source}`,
     `Имя: ${name}`,
-    `Телефон: ${phone}`,
+    `Почта: ${email}`,
     payload ? "" : null,
     payload ? "Данные расчета:" : null,
     payload || null,
@@ -85,7 +88,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       to,
       subject,
       text,
-      reply_to: "info@cer.moscow",
+      reply_to: email,
     }),
   });
 

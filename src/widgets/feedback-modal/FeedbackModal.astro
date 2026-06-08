@@ -62,13 +62,13 @@ import Card from "@/shared/ui/card/Card.astro";
         </label>
 
         <label class="block">
-          <span class="mb-2 block text-sm font-semibold text-[color:var(--text-muted)]">{site.feedback.phoneLabel}</span>
+          <span class="mb-2 block text-sm font-semibold text-[color:var(--text-muted)]">{site.feedback.emailLabel}</span>
           <input
-            name="phone"
-            type="tel"
-            autocomplete="tel"
-            inputmode="tel"
-            placeholder={site.feedback.phonePlaceholder}
+            name="email"
+            type="email"
+            autocomplete="email"
+            inputmode="email"
+            placeholder={site.feedback.emailPlaceholder}
             required
             class="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 text-base text-[color:var(--text)] outline-none transition focus:border-[color:var(--brand)] focus:ring-2 focus:ring-[color:var(--brand-soft)]"
           />
@@ -283,7 +283,7 @@ import Card from "@/shared/ui/card/Card.astro";
         },
         body: JSON.stringify({
           name: formData.get("name"),
-          phone: formData.get("phone"),
+          email: formData.get("email"),
           leadType: formData.get("leadType"),
           source: formData.get("source"),
           payload,

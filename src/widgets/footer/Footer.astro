@@ -7,25 +7,31 @@ Connected to: the CTA section and the same navigation anchors used in the header
 */
 
 import { site } from "@/shared/config/site";
+
+const isHome = Astro.url.pathname === "/";
+const base = isHome ? "" : "/";
 ---
 
 <footer class="w-full bg-[linear-gradient(180deg,#0e1730_0%,#0b1224_100%)] px-4 pb-4 pt-10 text-white sm:px-6 lg:px-8 lg:pb-6">
   <div class="flex min-h-[320px] flex-col justify-between gap-12">
     <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
       <div class="max-w-xl">
-        <div class="flex items-baseline gap-3">
-          <p class="text-2xl font-semibold leading-none sm:text-3xl">{site.brand}</p>
-          <p class="text-sm uppercase tracking-[0.24em] text-white/52">{site.brandTagline}</p>
-        </div>
+        <img src="/ЦЭР%20лого%20белое.svg" alt="ЦЭР" class="block h-16 w-auto" />
         <p class="mt-4 text-2xl leading-tight sm:text-3xl">
           {site.footer.lead}
         </p>
+        <a
+          href={`mailto:${site.contacts.infoEmail}`}
+          class="mt-4 inline-flex text-base font-medium text-white/82 underline decoration-white/24 underline-offset-4 transition hover:text-white hover:decoration-white/50"
+        >
+          {site.contacts.infoEmail}
+        </a>
       </div>
 
       <div class="flex flex-wrap gap-2">
         {site.nav.map((item) => (
           <a
-            href={item.href}
+            href={`${base}${item.href}`}
             class="rounded-full border border-white/12 px-4 py-2 text-sm text-white/72 transition hover:border-white/30 hover:text-white"
           >
             {item.label}
