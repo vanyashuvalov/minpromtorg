@@ -10,7 +10,7 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@astrojs/vercel": "latest"
+    "@astrojs/vercel": "latest",
     "@coolicons-dev/solid": "^0.4.10",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^5.0.0",
