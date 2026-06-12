@@ -1,10 +1,9 @@
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  output: 'server',
+  output: 'static',
   devToolbar: { enabled: false },
   vite: {
     plugins: [tailwindcss()],
@@ -14,5 +13,4 @@ export default defineConfig({
       },
     },
   },
-  adapter: vercel(),
 });

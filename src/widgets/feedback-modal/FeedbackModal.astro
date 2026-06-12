@@ -248,7 +248,8 @@ import Card from "@/shared/ui/card/Card.astro";
   });
 
   /*
-   * Send the lead to the site API, then switch to a success state only after the mail provider accepts it.
+   * Send the lead to send.php — a thin PHP proxy on reg.ru shared hosting
+   * that calls mail() and forwards the request to info@cer.moscow.
    */
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -276,22 +277,19 @@ import Card from "@/shared/ui/card/Card.astro";
     }
 
     try {
-      const response = await fetch("/api/lead", {
+      const response = await fetch("/send.php", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.get("name"),
           email: formData.get("email"),
-          leadType: formData.get("leadType"),
           source: formData.get("source"),
           payload,
         }),
       });
 
       if (!response.ok) {
-        throw new Error("Lead request failed.");
+        throw new Error("send.php error");
       }
 
       form.classList.add("hidden");
