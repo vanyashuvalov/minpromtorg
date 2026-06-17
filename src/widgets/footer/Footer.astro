@@ -26,6 +26,12 @@ const base = isHome ? "" : "/";
         >
           {site.contacts.infoEmail}
         </a>
+        <a
+          href={site.contacts.phoneHref}
+          class="mt-1 inline-flex text-base font-medium text-white/82 underline decoration-white/24 underline-offset-4 transition hover:text-white hover:decoration-white/50"
+        >
+          {site.contacts.phone}
+        </a>
       </div>
 
       <div class="flex flex-wrap gap-2">

@@ -25,6 +25,8 @@ export const site = {
   contacts: {
     infoEmail: "info@cer.moscow",
     zaprosEmail: "zapros@cer.moscow",
+    phone: "+7 (499) 117-77-01",
+    phoneHref: "tel:+74991177701",
   },
   nav: [
     { label: "Калькулятор", href: "#calculator" },

@@ -34,9 +34,14 @@ const base = isHome ? "" : "/";
       </nav>
 
       <div class="flex items-center justify-self-end gap-3">
-        <span class="hidden text-sm font-medium text-[color:var(--text-muted)] lg:inline-flex">
-          {site.contacts.infoEmail}
-        </span>
+        <div class="hidden flex-col items-end gap-0.5 lg:flex">
+          <span class="text-sm font-medium text-[color:var(--text-muted)]">
+            {site.contacts.infoEmail}
+          </span>
+          <a href={site.contacts.phoneHref} class="text-sm font-medium text-[color:var(--text-muted)] transition hover:text-[color:var(--text)]">
+            {site.contacts.phone}
+          </a>
+        </div>
         <!-- Mobile: icon-only button. sm+: full label -->
         <Button
           href={`${base}${site.actions.consultation.href}`}
